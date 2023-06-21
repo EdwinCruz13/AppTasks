@@ -1,10 +1,18 @@
 import { Router } from "express";
-import { list } from "../controllers/user.controllers.js";
+import { getUsers, getUser, createUser, updateUser, deleteUser } from "../controllers/user.controllers.js";
 
 const router = Router();
 
 //define http request
-router.get("/list", list);
+router.get("/getusers", getUsers);
+
+router.get("/getuser/:id", getUser);
+
+router.post("/createuser", createUser);
+
+router.put("/updateuser/:id", updateUser);
+
+router.delete("/deleteuser/:id", deleteUser);
 
 
 //export the routers

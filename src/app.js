@@ -19,7 +19,7 @@ appServer.use(express.json());
 appServer.use(morgan("dev"))
 
 
-//create routes, they will be routed by http request
+//create routes, they will be routed by http requests
 appServer.use("/api/users", userRoutes);
 
 
