@@ -24,16 +24,24 @@ export const dbConnection = async() => {
 }
 
 
-const conn = () => {
+export const dbTransaction = async() => {
+    var session;
     try {
-        mongoose.connect(process.env.MONGODB_URI);
+        await mongoose.connect(process.env.MONGODB_URI);
         const conn = mongoose.connection;
 
+        conn.on("disconnected", () => { console.error.bind(console, "connection error") });
+        conn.once("open", () => { console.info("Connection to database is succesful") });
+
         
-        return conn;
+        //initialize conection with transaction opened
+        session = await conn.startSession();
+        await session.startTransaction();
+
+        return session;
+
     } catch (error) {
-        
+        console.log(error);
+        process.exit(1);
     }
 }
-
-export default conn;
