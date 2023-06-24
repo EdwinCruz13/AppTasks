@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { dbTransaction  } from "../config/database.js";
 
 //import the model that it will use
 import TaskModel from "../models/task.models.js";
@@ -56,20 +57,11 @@ export const createTask = async(req, resp) => {
     var realCompleted = 0;
     
 
-    //start a new connection
-    mongoose.connect(process.env.MONGODB_URI);
-    const conn = mongoose.connection;
-    conn.on("open", () => { console.error.bind(console, "connection error") });
-    conn.once("open", () => { console.info("Connection to database is succesful") });
-    
-
-    const session = await conn.startSession();
+    //initializa session with transaction
+    const session = await dbTransaction();
 
     try {
-        //start the transaction
-        await session.startTransaction();
-
-
+        
         //find the user
         const userFound = await UserModel.findById( User.Id );
         //find the type of task
@@ -121,20 +113,10 @@ export const updateTask = async(req, resp) =>{
     const { Title, Description, StartDate, DueDate, Notes, Completed, User, Type, CurrentState, Comments } = req.body;
     var realCompleted = 0;
 
-
-    //start a new connection
-    mongoose.connect(process.env.MONGODB_URI);
-    const conn = mongoose.connection;
-    conn.on("open", () => { console.error.bind(console, "connection error") });
-    conn.once("open", () => { console.info("Connection to database is succesful") });
-
-    const session = await conn.startSession();
+    //initializa session with transaction
+    const session = await dbTransaction();
 
     try {
-        //start the transaction
-        await session.startTransaction();
-
-
         //find the user
         const userFound = await UserModel.findById( User.Id );
         //find the type of task
@@ -175,7 +157,7 @@ export const updateTask = async(req, resp) =>{
 
 
         await session.commitTransaction();
-        session.endSession();
+        await session.endSession();
 
 
         if(!updatedTask) return resp.status(404).json({message: "Task not found"});
@@ -184,8 +166,8 @@ export const updateTask = async(req, resp) =>{
 
         return resp.status(200).json(updatedTask);
     } catch (error) {
-        session.abortTransaction();
-        session.endSession();
+        await session.abortTransaction();
+        await session.endSession();
         resp.status(400).json({message: "error: " + error});
     }
 }
