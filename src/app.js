@@ -3,9 +3,15 @@ import cors from "cors";
 import morgan from "morgan";
 
 //import user routes
-import userRoutes from "./routes/user.routes.js";
+import usersRoutes from "./routes/user.routes.js";
 //import tasks routes
 import tasksRoutes from "./routes/task.routes.js"
+//import departments routes
+import departmentsRoutes from "./routes/department.routes.js";
+//import taskTypes routes
+import typeRoutes from "./routes/task.type.routes.js";
+//import States routes
+import stateRoutes from "./routes/state.routes.js";
 
 
 //create a express app
@@ -22,8 +28,11 @@ appServer.use(morgan("dev"))
 
 
 //create routes, they will be routed by http requests
-appServer.use("/api/users", userRoutes);
+appServer.use("/api/users", usersRoutes);
 appServer.use("/api/tasks", tasksRoutes);
+appServer.use("/api/departments", departmentsRoutes);
+appServer.use("/api/types", typeRoutes);
+appServer.use("/api/states", stateRoutes);
 
 
 //export the appserver

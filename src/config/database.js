@@ -22,3 +22,18 @@ export const dbConnection = async() => {
         process.exit(1);
     }
 }
+
+
+const conn = () => {
+    try {
+        mongoose.connect(process.env.MONGODB_URI);
+        const conn = mongoose.connection;
+
+        
+        return conn;
+    } catch (error) {
+        
+    }
+}
+
+export default conn;

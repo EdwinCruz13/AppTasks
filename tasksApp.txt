@@ -1,0 +1,35 @@
+Tasks
+	- Title
+	- Description
+	- StartDate
+	- DueDate
+	- Type
+	- User
+	- Notes
+	- State
+	- Complete  {0% Not started, 100%Completed}
+
+TaskTypes
+	- nType
+
+TaskState
+	-Task
+	-State
+	-User
+	-SavedDate
+
+State    {Not started, In process, Completed, Canceled}
+	-StateID
+	-nState
+	
+
+Users
+	-Email
+	-Password
+	-Username
+	-nUser
+	-Department
+	-IsAdmin
+
+Department
+	-nDepartment

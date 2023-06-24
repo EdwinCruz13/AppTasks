@@ -1,4 +1,5 @@
 import UserModel from "../models/user.models.js";
+import DeparmentModel from "../models/department.models.js";
 
 
 /**
@@ -10,7 +11,7 @@ import UserModel from "../models/user.models.js";
 export const getUsers = async(req, resp) => {
     try {
         //get all users created by mongoDB
-        const users = await UserModel.find();
+        const users = await UserModel.find().populate("Department");
 
         //return the list
         return resp.status(200).json(users);
@@ -28,7 +29,7 @@ export const getUsers = async(req, resp) => {
 export const getUser = async(req, resp) => {
     
     try {
-        const user = await UserModel.findById(req.params.id);
+        const user = await UserModel.findById(req.params.id).populate("Department");;
 
         //return an user
         return resp.status(200).json(user);
@@ -46,10 +47,15 @@ export const getUser = async(req, resp) => {
  * @returns 
  */
 export const createUser = async(req, resp) => {
-    const { Email, Username, Password } = req.body;
+    const { Email, Username, Password, Department, isAdmin } = req.body;
     try {
+
+        //find the department
+        const deparmentFound = await DeparmentModel.findById( Department.Id )
+
+
         const newUser = await UserModel({
-            Email, Username, Password
+            Email, Username, Password, isAdmin, Department: deparmentFound
         });
         await newUser.save();
 
@@ -67,8 +73,15 @@ export const createUser = async(req, resp) => {
  * @returns 
  */
 export const updateUser = async(req, resp) => {
+    const { Email, Username, Password, isAdmin, Department } = req.body;
+
     try {
-        const updateUser = await UserModel.findByIdAndUpdate(req.params.id, req.body,  {new: true});
+
+        //find the department
+        const deparmentFound = await DeparmentModel.findById( Department.Id )
+
+        //find by id and update
+        const updateUser = await UserModel.findByIdAndUpdate(req.params.id, { Email, Username, Password, isAdmin, Department: deparmentFound  } ,  {new: true});
 
         //if the user does not exists send a error message as bad request
         if(!updateUser) return resp.status(404).json({message: "User not found"});
