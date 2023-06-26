@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { dbTransaction  } from "../config/database.js";
 
 //import the model that it will use
@@ -20,7 +19,7 @@ import TaskStateModel from "../models/task.state.models.js";
 export const getTasks = async(req, resp) =>{
     try {
         //get the list from mongoose database
-        const tasks = await TaskModel.find().populate("User").populate("Type").populate("CurrentState");
+        const tasks = await TaskModel.find().populate("AssignedTo").populate("AssignedBy").populate("Type").populate("CurrentState");
 
         return resp.status(200).json(tasks);
     } catch (error) {
@@ -38,8 +37,7 @@ export const getTasks = async(req, resp) =>{
 export const getTask = async(req, resp) =>{
     try {
         //get the list from mongoose database
-        const task = await TaskModel.findById( req.params.id ).populate("User").populate("Type").populate("CurrentState");
-
+        const task = await TaskModel.findById(req.params.id).populate("AssignedTo").populate("AssignedBy").populate("Type").populate("CurrentState");
         return resp.status(200).json(task);
     } catch (error) {
         resp.status(400).json({message: "error: " + error});
@@ -53,7 +51,7 @@ export const getTask = async(req, resp) =>{
  */
 export const createTask = async(req, resp) => {
     //get the main properties
-    const { Title, Description, StartDate, DueDate, Notes, Completed, User, Type, CurrentState } = req.body;
+    const { Title, Description, StartDate, DueDate, Notes, Completed, AssignedTo, AssignedBy, Type, CurrentState } = req.body;
     var realCompleted = 0;
     
 
@@ -61,9 +59,10 @@ export const createTask = async(req, resp) => {
     const session = await dbTransaction();
 
     try {
-        
+        //find the user who asignes this task
+        const userAssignFound = await UserModel.findById(AssignedBy.Id);
         //find the user
-        const userFound = await UserModel.findById( User.Id );
+        const userFound = await UserModel.findById( AssignedTo.Id );
         //find the type of task
         const typeFound = await TypeModel.findById(Type.Id);
         //find the state information
@@ -77,14 +76,15 @@ export const createTask = async(req, resp) => {
        //create a new task
        const newTask = await TaskModel.create([{
             Title, Description, StartDate, DueDate, Notes, Completed: realCompleted,
-            User: userFound, Type: typeFound, CurrentState: stateFound
+            AssignedTo: userFound, AssignedBy: userAssignFound,
+            Type: typeFound, CurrentState: stateFound
         }], { session });
 
 
         //save a new task states
         await  TaskStateModel.create([{ 
             Task: newTask[0],  State: stateFound,  
-            User: userFound, CurrentState: true, 
+            User: userAssignFound, CurrentState: true, 
             Comments:Notes 
         }], { session });
 
@@ -110,15 +110,17 @@ export const createTask = async(req, resp) => {
  */
 export const updateTask = async(req, resp) =>{
     //get the main properties
-    const { Title, Description, StartDate, DueDate, Notes, Completed, User, Type, CurrentState, Comments } = req.body;
+    const { Title, Description, StartDate, DueDate, Notes, Completed, AssignedTo, AssignedBy, Type, CurrentState, Comments } = req.body;
     var realCompleted = 0;
 
     //initializa session with transaction
     const session = await dbTransaction();
 
     try {
+        //find the user who asignes this task
+        const userAssignFound = await UserModel.findById(AssignedBy.Id);
         //find the user
-        const userFound = await UserModel.findById( User.Id );
+        const userFound = await UserModel.findById( AssignedTo.Id );
         //find the type of task
         const typeFound = await TypeModel.findById(Type.Id);
         //find the state information
@@ -137,7 +139,7 @@ export const updateTask = async(req, resp) =>{
 
         //update the task from mongoose database
         const updatedTask = await TaskModel.findByIdAndUpdate( req.params.id, 
-                                                             { Title, Description, StartDate, DueDate, Notes, 
+                                                             { Title, Description, StartDate, DueDate, Notes, AssignedTo: userFound,
                                                                Type: typeFound, CurrentState: stateFound, Completed: realCompleted  },
                                                              {new: true} );
 
@@ -151,7 +153,7 @@ export const updateTask = async(req, resp) =>{
             // add a new taskState with CurrentState to true value
             await TaskStateModel.create([{ 
                 Task: updatedTask,  State: stateFound,  
-                User: userFound, CurrentState: true, Comments 
+                User: userAssignFound, CurrentState: true, Comments 
             }], { session });
         }
 

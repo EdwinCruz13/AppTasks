@@ -4,9 +4,10 @@ Tasks
 	- StartDate
 	- DueDate
 	- Type
-	- User
+	- AssignedTo
+	- AssignedBy
 	- Notes
-	- State
+	- currentState
 	- Complete  {0% Not started, 100%Completed}
 
 TaskTypes

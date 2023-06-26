@@ -7,9 +7,10 @@ const taskSchema = new mongoose.Schema({
     DueDate: { type: Date, require: true},
     Notes: {type: String, trim: true},
     Completed: { type: Number, required: true}, //% porcentage completed
-    User: { type: Schema.Types.ObjectId, ref: "Users"},
-    Type: { type: Schema.Types.ObjectId, ref: "TaskTypes"},
-    CurrentState: { type: Schema.Types.ObjectId, ref: "States"}
+    AssignedTo: { type: Schema.Types.ObjectId, ref: "Users", require: true},
+    AssignedBy: {type: Schema.Types.ObjectId, ref: "Users", require: true},
+    Type: { type: Schema.Types.ObjectId, ref: "TaskTypes", require: true},
+    CurrentState: { type: Schema.Types.ObjectId, ref: "States", require: true}
 }, { timestamps: true });
 
 //export model
