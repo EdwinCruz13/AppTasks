@@ -3,7 +3,7 @@ import { getUsers, getUser, createUser, updateUser, deleteUser } from "../contro
 import { Login, Logout } from "../controllers/auth.controllers.js";
 
 //import access athorization middleware
-import { UserAuth } from "../middleware/auth.validate.middleware.js";
+import { UserAuth, AdminAuth } from "../middleware/auth.validate.middleware.js";
 
 const router = Router();
 
@@ -16,11 +16,11 @@ router.get("/getusers", UserAuth, getUsers);
 
 router.get("/getuser/:id", UserAuth, getUser);
 
-router.post("/createuser", UserAuth, createUser);
+router.post("/createuser", AdminAuth, createUser);
 
-router.put("/updateuser/:id", UserAuth, updateUser);
+router.put("/updateuser/:id", AdminAuth, updateUser);
 
-router.delete("/deleteuser/:id", UserAuth, deleteUser);
+router.delete("/deleteuser/:id", AdminAuth, deleteUser);
 
 
 //export the routers

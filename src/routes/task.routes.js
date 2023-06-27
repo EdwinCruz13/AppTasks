@@ -2,7 +2,7 @@ import { Router } from "express";
 import { getTasks, getTask, createTask, updateTask, deleteTask } from "../controllers/task.controllers.js";
 
 //import access athorization middleware
-import { UserAuth } from "../middleware/auth.validate.middleware.js";
+import { UserAuth, AdminAuth } from "../middleware/auth.validate.middleware.js";
 
 //define a new router
 const router = Router();
@@ -13,11 +13,11 @@ router.get("/getTasks", UserAuth, getTasks);
 
 router.get("/getTask/:id", UserAuth, getTask);
 
-router.post("/createTask", UserAuth, createTask);
+router.post("/createTask", AdminAuth, createTask);
 
 router.put("/updateTask/:id", UserAuth, updateTask);
 
-router.delete("/deleteTask/:id", UserAuth, deleteTask);
+router.delete("/deleteTask/:id", AdminAuth, deleteTask);
 
 
 
