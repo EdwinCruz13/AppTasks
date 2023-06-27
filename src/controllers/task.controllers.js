@@ -51,7 +51,7 @@ export const getTask = async(req, resp) =>{
  */
 export const createTask = async(req, resp) => {
     //get the main properties
-    const { Title, Description, StartDate, DueDate, Notes, Completed, AssignedTo, AssignedBy, Type, CurrentState } = req.body;
+    const { Title, Description, StartDate, DueDate, Notes, Completed, AssignedTo, Type, CurrentState } = req.body;
     var realCompleted = 0;
     
 
@@ -60,7 +60,7 @@ export const createTask = async(req, resp) => {
 
     try {
         //find the user who asignes this task
-        const userAssignFound = await UserModel.findById(AssignedBy.Id);
+        const userAssignFound = await UserModel.findById(req.authenticated_user.Id);
         //find the user
         const userFound = await UserModel.findById( AssignedTo.Id );
         //find the type of task
@@ -110,7 +110,7 @@ export const createTask = async(req, resp) => {
  */
 export const updateTask = async(req, resp) =>{
     //get the main properties
-    const { Title, Description, StartDate, DueDate, Notes, Completed, AssignedTo, AssignedBy, Type, CurrentState, Comments } = req.body;
+    const { Title, Description, StartDate, DueDate, Notes, Completed, AssignedTo, Type, CurrentState, Comments } = req.body;
     var realCompleted = 0;
 
     //initializa session with transaction
@@ -118,7 +118,7 @@ export const updateTask = async(req, resp) =>{
 
     try {
         //find the user who asignes this task
-        const userAssignFound = await UserModel.findById(AssignedBy.Id);
+        const userAssignFound = await UserModel.findById(req.authenticated_user.Id);
         //find the user
         const userFound = await UserModel.findById( AssignedTo.Id );
         //find the type of task
