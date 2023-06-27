@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
 
 //import user routes
 import usersRoutes from "./routes/user.routes.js";
@@ -24,7 +25,8 @@ appServer.set("port", 4000);
 //some basic middleware
 appServer.use(cors());
 appServer.use(express.json());
-appServer.use(morgan("dev"))
+appServer.use(morgan("dev"));
+appServer.use(cookieParser());
 
 
 //create routes, they will be routed by http requests
