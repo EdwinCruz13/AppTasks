@@ -1,0 +1,44 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+
+@font-face {
+  font-family: "Cream";
+  src: url("./assets/fonts/cream.ttf");
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
+a {
+  font-weight: 500;
+  color: #0683D7;
+  text-decoration: none;
+  font-family:Cream;
+  font-size: 14px;
+  
+  transition: color 0.5s ease-out;
+}
+a:hover {
+  color: #045A94;
+  transition: color 0.5s ease-out;
+}
+
+span{
+  font-family: Cream;
+  font-size: 12px;
+}
+
+p{
+  font-family: Cream;
+  font-size: 12px;
+}
+
+
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
