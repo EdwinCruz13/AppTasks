@@ -6,7 +6,7 @@ import viteLogo from '/vite.svg'
 
 //import pages
 import { Home } from "./pages/Home/Home";
-import { SignIn } from "./pages/SignInUp/signin";
+import { SignIn } from "./pages/SignInUp/SignIn";
 
 function App() {
   return (
