@@ -1,7 +1,7 @@
 import { React } from "react";
 import "./Loginup.css"
 
-export const Signin = () => {
+export const Signinform = () => {
     return(
         <>
             <div className="form">

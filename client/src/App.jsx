@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 
-
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 
@@ -8,14 +7,21 @@ import viteLogo from '/vite.svg'
 import { Home } from "./pages/Home/Home";
 import { SignIn } from "./pages/SignInUp/SignIn";
 
+//import context provider
+import { UserContextProvider } from "./context/UserContext";
+
 function App() {
   return (
     <>
-      <Routes>
-        <Route exact path="/" element={<SignIn />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
-      </Routes>
+      <UserContextProvider>
+        <Routes>
+          <Route exact path="/" element={<SignIn />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/signin" element={<SignIn />} />
+        </Routes>
+      </UserContextProvider>
+
+      
     </>
   )
 }

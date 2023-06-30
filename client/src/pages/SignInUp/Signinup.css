@@ -1,0 +1,115 @@
+.signinup-form{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.signinup-form > .lateral{
+    padding: 0 6.5rem;
+}
+
+.signinup-form .left-lateral{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    text-align: center;
+}
+
+
+.signinup-form p{
+    font-size: 17px;
+}
+
+
+
+@media (min-width: 768px) and (max-width: 1282px) {
+    .signinup-form{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        
+        justify-content: center;
+        
+       
+    }
+
+    .signinup-form > .lateral{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        padding: 1.5rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    
+}
+
+/*table landscape mode*/
+@media (min-width: 767px) and (max-width: 876px) {
+    .signinup-form{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        
+        justify-content: baseline;
+        align-items: center;
+        height: 100%;
+        
+        
+    }
+
+    .signinup-form > .lateral{
+        padding: 1.5rem 1.5rem;
+    }
+
+    .left-lateral article:nth-child(1){
+        display: none;
+    }
+
+    
+}
+
+/*small tablet*/
+@media (min-width: 480px) and (max-width: 767px) {
+    .signinup-form{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        
+        justify-content: center;
+        height: 100%;
+        padding: 0;
+    }
+
+    .signinup-form > .lateral{
+        padding: 1.5rem 1.3rem;
+    }
+
+    .left-lateral article:nth-child(1){
+        display: none;
+    }
+}
+
+/*mobile screen*/
+@media (max-width: 480px) {
+    .signinup-form{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        
+        justify-content: center;
+        height: 100%;
+        padding: 0;
+    }
+
+    .signinup-form > .lateral{
+        padding: 1.5rem 1.3rem;
+    }
+
+    .left-lateral article:nth-child(1){
+        display: none;
+    }
+    
+}
