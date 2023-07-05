@@ -1,6 +1,6 @@
 import { React, createContext, useEffect, useState  } from "react";
 import Cookies from "js-cookie";
-import { LoginRequest, LogoutRequest, VerifyToken } from "../api/auth.api";
+import { LoginRequest, LogoutRequest, VerifyTokenRequest } from "../api/auth.api";
 
 //create a context
 export const UserContext = createContext();
@@ -12,6 +12,7 @@ export const UserContextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [errorMessage, setErrorMessage] = useState({ responseError: "", usernameError: "", emailError: "", passwordError: ""});
+    const [loading, setLoading] = useState(true);
 
 
 
@@ -20,32 +21,34 @@ export const UserContextProvider = ({ children }) => {
         async function verifyToken(){
             const cookies = Cookies.get();
            
-
             //if there any token saved as cookie
-            if(cookies.token){
-                try {
-                    const response = await VerifyToken(cookies.token);
-                    if(!response.data){
-                        setIsAuthenticated(false);
-                        setUser(null);
-                    }
-
-                    setIsAuthenticated(true);
-                    setUser(response.data);
-
-                    //console.log(user, isAuthenticated);
-            
-                } catch (error) {
-                    setIsAuthenticated(false);
-                    setUser(null);
-                }
-            }
-
-            //there is not any token
-            else{
+            if(!cookies.token){
+                setLoading(false);
                 setIsAuthenticated(false);
                 setUser(null);
                 return;
+            }
+
+            try {
+                const response = await VerifyTokenRequest(cookies.token);
+                if(!response.data){
+                    setLoading(false);
+                    setIsAuthenticated(false);
+                    setUser(null);
+                    return
+                }
+
+                setLoading(false);
+                setIsAuthenticated(true);
+                setUser(response.data);
+                
+
+                //console.log(user, isAuthenticated);
+        
+            } catch (error) {
+                setLoading(false);
+                setIsAuthenticated(false);
+                setUser(null);
             }
         }
 
@@ -78,6 +81,7 @@ export const UserContextProvider = ({ children }) => {
 
             
         } catch (error) {
+            setLoading(false);
             setIsAuthenticated(false);
             setUser(null);
         }
@@ -107,7 +111,7 @@ export const UserContextProvider = ({ children }) => {
 
     return (
         <UserContext.Provider 
-            value={{user, isAuthenticated, errorMessage, Signin, Logout}}
+            value={{user, isAuthenticated, loading, errorMessage, Signin, Logout}}
         >
             { children }
         </UserContext.Provider>

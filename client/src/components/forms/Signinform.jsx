@@ -18,8 +18,6 @@ export const Signinform = () => {
         if(isAuthenticated) navigate("/home");
     }, [isAuthenticated])
 
-   
-
     /**
      * event that catch the value from the form
      * @param {*} event 

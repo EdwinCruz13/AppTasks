@@ -20,13 +20,14 @@ function App() {
       <UserContextProvider>
         <BrowserRouter>
           <Routes>
+            <Route path="/home" element={<Home />} />
             <Route exact path="/" element={<SignIn />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/logout" element={<Logout />} />
 
             <Route element={ <ProtectedRoute />}>
-              <Route path="/home" element={<Home />} />
+              
               <Route path="/tasks" element={<Tasks />} />
             </Route>
           </Routes>

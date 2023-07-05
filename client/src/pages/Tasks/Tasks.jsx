@@ -1,15 +1,18 @@
 import {React} from "react";
 import { Link } from "react-router-dom";
 
+import { Aside } from "../../components/aside/Aside";
+import { Navbar } from "../../components/navbar/Navbar"
+
 export const Tasks = () => {
     return(
-        <>
-            <div><h2>I am the tasks pages</h2></div>
-            <div className="form-group">
-                    <Link to="/home" className="btn btn-lg btn-warning">
-                    home
-                    </Link>
+        <section className="container">
+            <Aside />
+
+            <div className="section-body">
+                <Navbar />
+                fdfd
             </div>
-        </>
+        </section>
     );
 }

@@ -23,7 +23,7 @@ export const LogoutRequest = async(token) => {
     }
 }
 
-export const VerifyToken = async(token) => {
+export const VerifyTokenRequest = async(token) => {
     try {
         const response = await axios.get(`users/verifytoken`, token);
         return response;

@@ -5,11 +5,31 @@
   src: url("./assets/fonts/cream.ttf");
 }
 
+.container{
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: row;
+  justify-content: stretch;
+  height: 100vh;
+}
+
+.section-body{ 
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
 
 body {
   margin: 0;
   padding: 0;
 }
+
+nav, div, section, article{ 
+  display: block;
+}
+
 
 
 a {
@@ -102,4 +122,13 @@ input{
   font-size: 0.875rem;
   line-height: 1.5;
   border-radius: 0.2rem;
+}
+
+
+aside ul,
+aside li {
+    outline: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
 }
