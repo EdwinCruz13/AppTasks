@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getUsers, getUser, createUser, updateUser, deleteUser } from "../controllers/user.controllers.js";
-import { Login, Logout } from "../controllers/auth.controllers.js";
+import { Login, Logout, VerifyToken } from "../controllers/auth.controllers.js";
 
 //import access athorization middleware
 import { UserAuth, AdminAuth } from "../middleware/auth.validate.middleware.js";
@@ -11,6 +11,8 @@ const router = Router();
 router.post("/login", Login);
 
 router.post("/logout", Logout);
+
+router.get("/verifytoken", VerifyToken)
 
 router.get("/getusers", UserAuth, getUsers);
 

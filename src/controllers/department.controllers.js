@@ -13,7 +13,7 @@ export const getDepartments = async(req, resp) => {
 
         return resp.status(200).json(departments);;
     } catch (error) {
-        return resp.status(400).json({message: "error: " + error});
+        return resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -30,7 +30,7 @@ export const getDepartment = async(req, resp) => {
 
         return resp.status(200).json(department);;
     } catch (error) {
-        return resp.status(400).json({message: "error: " + error});
+        return resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -49,7 +49,7 @@ export const createDepartment = async(req, resp) => {
 
         return resp.status(200).json(newDepartment);;
     } catch (error) {
-        return resp.status(400).json({message: "error: " + error});
+        return resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -63,11 +63,11 @@ export const createDepartment = async(req, resp) => {
 export const updateDepartment = async(req, resp) => {
     try {
         const updatedDepartment = await DepartmentModel.findByIdAndUpdate(req.params.id, req.body, { new: true});
-        if(!updatedDepartment) return resp.status(400).json({message: "department not found"})
+        if(!updatedDepartment) return resp.status(400).json({error: "department not found"})
 
         return resp.status(200).json(updatedDepartment);;
     } catch (error) {
-        return resp.status(400).json({message: "error: " + error});
+        return resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -81,10 +81,10 @@ export const updateDepartment = async(req, resp) => {
 export const deleteDepartment = async(req, resp) => {
     try {
         const deletedDepartment = await DepartmentModel.findByIdAndDelete(req.params.id, req.body, { new: true});
-        if(!deletedDepartment) return resp.status(400).json({message: "department not found"})
+        if(!deletedDepartment) return resp.status(400).json({error: "department not found"})
 
         return resp.status(200).json(deletedDepartment);;
     } catch (error) {
-        return resp.status(400).json({message: "error: " + error});
+        return resp.status(400).json({error: "error: " + error});
     }
 }

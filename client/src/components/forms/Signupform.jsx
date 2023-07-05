@@ -1,10 +1,11 @@
 import { React } from "react";
+import { Link } from "react-router-dom";
 import "./Loginup.css"
 
-export const Signup = () => {
+export const Signupform = () => {
     return(
         <>
-            <div className="form">
+            <form className="form">
                 <div className="form-header">
                     <h2 className="form-title">Create a new account</h2>
                     <span className="form-description">Manage your tasks properly and better</span>
@@ -13,20 +14,20 @@ export const Signup = () => {
                 <div className="form-group">
                     <label htmlFor="Username">Username</label>
                     <input type="text" name="Username" id="Username" className="form-control" />
-                    <div class="invalid-feedback">El Campo es requerido </div>
+                    <div className="invalid-feedback">El Campo es requerido </div>
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="Email">Email</label>
                     <input type="text" name="Email" id="Email" className="form-control" />
-                    <div class="invalid-feedback">El Campo es requerido </div>
+                    <div className="invalid-feedback">El Campo es requerido </div>
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="Password">Password</label>
                     <input type="password" name="Password" id="Password" className="form-control" />
                     <div className="group-tooltips">
-                        <div class="invalid-feedback">El Campo es requerido </div>
+                        <div className="invalid-feedback">El Campo es requerido </div>
                     </div>
                 </div>
 
@@ -34,7 +35,12 @@ export const Signup = () => {
                     <button type="submit" className="btn btn-lg btn-primary">Sign up</button>
                 </div>
 
-            </div>
+                <section className="form-group-message-signup">
+                    <small id="emailHelp" style={{fontSize: "18px", color:"#756969"}}>Aren't you new ? </small>
+                    <Link to="/signin" className="btn" style={{ fontSize: "18px"}}>Sign in</Link>
+                </section>
+
+            </form>
         </>
     )
 }

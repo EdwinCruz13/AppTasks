@@ -46,13 +46,21 @@ label {
   display: inline-block;
   margin-bottom: 0.5rem;
   font-size: 16px;
-  color: #010101
+  color: #010101;
+  font-family: "Cream";
 }
 
 .text-muted {
   color: #BDBDBD !important;
   margin-top:7px;
-  
+  font-family: "Cream";
+}
+
+b {
+  display: inline-block;
+  font-size: 14px;
+  color: #5F22D9;
+  font-family: "Cream";
 }
 
 .btn {

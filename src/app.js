@@ -23,7 +23,10 @@ const appServer = express();
 appServer.set("port", 4000);
 
 //some basic middleware
-appServer.use(cors());
+appServer.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+}));
 appServer.use(express.json());
 appServer.use(morgan("dev"));
 appServer.use(cookieParser());

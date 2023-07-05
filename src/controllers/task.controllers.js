@@ -23,7 +23,7 @@ export const getTasks = async(req, resp) =>{
 
         return resp.status(200).json(tasks);
     } catch (error) {
-        resp.status(400).json({message: "error: " + error});
+        resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -40,7 +40,7 @@ export const getTask = async(req, resp) =>{
         const task = await TaskModel.findById(req.params.id).populate("AssignedTo").populate("AssignedBy").populate("Type").populate("CurrentState");
         return resp.status(200).json(task);
     } catch (error) {
-        resp.status(400).json({message: "error: " + error});
+        resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -97,7 +97,7 @@ export const createTask = async(req, resp) => {
     } catch (error) {
         session.abortTransaction();
         session.endSession();
-        resp.status(400).json({message: "error: " + error});
+        resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -162,7 +162,7 @@ export const updateTask = async(req, resp) =>{
         await session.endSession();
 
 
-        if(!updatedTask) return resp.status(404).json({message: "Task not found"});
+        if(!updatedTask) return resp.status(404).json({error: "Task not found"});
 
 
 
@@ -170,7 +170,7 @@ export const updateTask = async(req, resp) =>{
     } catch (error) {
         await session.abortTransaction();
         await session.endSession();
-        resp.status(400).json({message: "error: " + error});
+        resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -186,10 +186,10 @@ export const deleteTask = async(req, resp) =>{
         //get the list from mongoose database
         const deletedTask = await TaskModel.findByIdAndDelete( req.params.id);
 
-        if(!deletedTask) return resp.status(404).json({message: "Task not found"});
+        if(!deletedTask) return resp.status(404).json({error: "Task not found"});
 
         return resp.status(200).json(deletedTask);
     } catch (error) {
-        resp.status(400).json({message: "error: " + error});
+        resp.status(400).json({error: "error: " + error});
     }
 }

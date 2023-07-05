@@ -13,7 +13,7 @@ export const getTypes = async(req, resp) => {
 
         return resp.status(200).json(Types);;
     } catch (error) {
-        return resp.status(400).json({message: "error: " + error});
+        return resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -30,7 +30,7 @@ export const getType = async(req, resp) => {
 
         return resp.status(200).json(Type);;
     } catch (error) {
-        return resp.status(400).json({message: "error: " + error});
+        return resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -49,7 +49,7 @@ export const createType = async(req, resp) => {
 
         return resp.status(200).json(newType);;
     } catch (error) {
-        return resp.status(400).json({message: "error: " + error});
+        return resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -63,11 +63,11 @@ export const createType = async(req, resp) => {
 export const updateType = async(req, resp) => {
     try {
         const updatedType = await TaskTypeModel.findByIdAndUpdate(req.params.id, req.body, { new: true});
-        if(!updatedType) return resp.status(400).json({message: "Type not found"})
+        if(!updatedType) return resp.status(400).json({error: "Type not found"})
 
         return resp.status(200).json(updatedType);;
     } catch (error) {
-        return resp.status(400).json({message: "error: " + error});
+        return resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -81,10 +81,10 @@ export const updateType = async(req, resp) => {
 export const deleteType = async(req, resp) => {
     try {
         const deletedType = await TaskTypeModel.findByIdAndDelete(req.params.id, req.body, { new: true});
-        if(!deletedType) return resp.status(400).json({message: "Type not found"})
+        if(!deletedType) return resp.status(400).json({error: "Type not found"})
 
         return resp.status(200).json(deletedType);;
     } catch (error) {
-        return resp.status(400).json({message: "error: " + error});
+        return resp.status(400).json({error: "error: " + error});
     }
 }

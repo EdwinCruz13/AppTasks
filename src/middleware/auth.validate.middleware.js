@@ -14,11 +14,11 @@ export const UserAuth = (req, resp, next) => {
     const {token} = req.cookies;
 
     //validate the cookie
-    if(!token) return resp.status(401).json({message: "Unathorized request"});
+    if(!token) return resp.status(401).json({error: "Unathorized request"});
 
     //use webtoken in order to verify the cookie
     jwt.verify(token, process.env.WEBTOKEN_SECRET, (err, user) => {
-        if(err) return resp.status(403).json({message: "Invalid user"});
+        if(err) return resp.status(403).json({error: "Invalid user"});
 
         //create an user authenticated
         req.authenticated_user = user;
@@ -40,11 +40,11 @@ export const AdminAuth = async(req, resp, next) => {
     const {token} = req.cookies;
 
     //validate the cookie
-    if(!token) return resp.status(401).json({message: "Unathorized request"});
+    if(!token) return resp.status(401).json({error: "Unathorized request"});
 
     //use webtoken in order to verify the cookie
     jwt.verify(token, process.env.WEBTOKEN_SECRET, (err, user) => {
-        if(err) return resp.status(403).json({message: "Invalid user"});
+        if(err) return resp.status(403).json({error: "Invalid user"});
 
         //create an user authenticated
         req.authenticated_user = user;
@@ -52,7 +52,7 @@ export const AdminAuth = async(req, resp, next) => {
 
     //verify if the user has the admin authentication
     const user = await UserModel.findById({_id: req.authenticated_user.Id});
-    if(!user.isAdmin) return resp.status(403).json({message: "Your do not have privilege."});
+    if(!user.isAdmin) return resp.status(403).json({error: "Your do not have privilege."});
 
     next();
 }

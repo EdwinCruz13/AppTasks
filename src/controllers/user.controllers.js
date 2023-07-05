@@ -22,7 +22,7 @@ export const getUsers = async(req, resp) => {
         //return the list
         return resp.status(200).json(users);
     } catch (error) {
-        resp.status(500).json({message: "error: " + error});
+        resp.status(500).json({error: "error: " + error});
     }
 }
 
@@ -40,7 +40,7 @@ export const getUser = async(req, resp) => {
         //return an user
         return resp.status(200).json(user);
     } catch (error) {
-        resp.status(500).json({message: "error: " + error});
+        resp.status(500).json({error: "error: " + error});
     }
 }
 
@@ -83,7 +83,7 @@ export const createUser = async(req, resp) => {
             Department: deparmentFound
         });
     } catch (error) {
-        resp.status(500).json({message: "error: " + error});
+        resp.status(500).json({error: "error: " + error});
     }
 }
 
@@ -107,7 +107,7 @@ export const updateUser = async(req, resp) => {
         const updateUser = await UserModel.findByIdAndUpdate(req.params.id, { Email, Username, Password: passwordHash, isAdmin, Department: deparmentFound  } ,  {new: true});
 
         //if the user does not exists send a error message as bad request
-        if(!updateUser) return resp.status(404).json({message: "User not found"});
+        if(!updateUser) return resp.status(404).json({error: "User not found"});
 
         //return the data updated
         return resp.status(200).json({
@@ -119,7 +119,7 @@ export const updateUser = async(req, resp) => {
         });
         
     } catch (error) {
-        resp.status(500).json({message: "error: " + error});
+        resp.status(500).json({error: "error: " + error});
     }
 }
 
@@ -135,12 +135,12 @@ export const deleteUser = async(req, resp) => {
         const deletedUser = await UserModel.findByIdAndDelete(req.params.id);
 
         //if the user does not exists send a error message as bad request
-        if(!deletedUser) return resp.status(404).json({message: "User not found"});
+        if(!deletedUser) return resp.status(404).json({error: "User not found"});
 
         //return the data updated
         return resp.status(200).json(deletedUser);
         
     } catch (error) {
-        resp.status(500).json({message: "error: " + error});
+        resp.status(500).json({error: "error: " + error});
     }
 }

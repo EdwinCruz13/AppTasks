@@ -13,7 +13,7 @@ export const getStates = async(req, resp) => {
 
         return resp.status(200).json(States);;
     } catch (error) {
-        return resp.status(400).json({message: "error: " + error});
+        return resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -30,7 +30,7 @@ export const getState = async(req, resp) => {
 
         return resp.status(200).json(State);;
     } catch (error) {
-        return resp.status(400).json({message: "error: " + error});
+        return resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -49,7 +49,7 @@ export const createState = async(req, resp) => {
 
         return resp.status(200).json(newState);;
     } catch (error) {
-        return resp.status(400).json({message: "error: " + error});
+        return resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -63,11 +63,11 @@ export const createState = async(req, resp) => {
 export const updateState = async(req, resp) => {
     try {
         const updatedState = await StateModel.findByIdAndUpdate(req.params.id, req.body, { new: true});
-        if(!updatedState) return resp.status(400).json({message: "State not found"})
+        if(!updatedState) return resp.status(400).json({error: "State not found"})
 
         return resp.status(200).json(updatedState);;
     } catch (error) {
-        return resp.status(400).json({message: "error: " + error});
+        return resp.status(400).json({error: "error: " + error});
     }
 }
 
@@ -81,10 +81,10 @@ export const updateState = async(req, resp) => {
 export const deleteState = async(req, resp) => {
     try {
         const deletedState = await StateModel.findByIdAndDelete(req.params.id, req.body, { new: true});
-        if(!deletedState) return resp.status(400).json({message: "State not found"})
+        if(!deletedState) return resp.status(400).json({error: "State not found"})
 
         return resp.status(200).json(deletedState);;
     } catch (error) {
-        return resp.status(400).json({message: "error: " + error});
+        return resp.status(400).json({error: "error: " + error});
     }
 }
