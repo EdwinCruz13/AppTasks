@@ -124,6 +124,13 @@ input{
   border-radius: 0.2rem;
 }
 
+ul, ol {
+  list-style: none;
+  margin: auto;
+  width: auto;
+  font-family: "Cream";
+  top: auto;
+}
 
 aside ul,
 aside li {
@@ -131,4 +138,17 @@ aside li {
     margin: 0;
     padding: 0;
     border: none;
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
+hr {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }

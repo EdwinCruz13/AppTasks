@@ -76,13 +76,13 @@
     justify-content: space-evenly;
 }
 
-.aside li:hover a{
+.aside li:hover a, .aside li a.active{
     color: #fff;
     background-color: #2C016D;
     transition: all 0.1s ease-in;
 }
 
-.aside li:hover span{
+.aside li:hover span, .aside li a.active span{
     color: #fff;
     transition: color 0.15s ease-in;
 }
@@ -133,26 +133,46 @@ text-decoration: none;
 
 /*ipad and any device in potrait mode*/
 @media (min-width: 768px) and (max-width: 1282px) {
-    /* .aside {
-        width: 70px;
-        transition: width 0.5s ease-out;
-    } */
-}
-
-/*mobile and small ipad*/
-@media (min-width: 480px) and (max-width: 767px) {
-    .aside-label{ display: none;}
     .aside {
-        width: 70px;
-        left: -5px;
+        width: 320px;
         transition: width 0.5s ease-out;
-    }
-    .aside li > a {
-        justify-content: space-around;
+        
     }
     .aside .aside-logo{
         width: 45px;
         height: 45px;
+        transition: all 0.1s ease-in;
+    }
+    .aside-label{ font-size: 26px; transition: all 0.1s ease-in;}
+    .aside li > a > .fa-aside, .aside li > a  > .nav-text{
+        font-size: 20px;
+        transition: all 0.1s ease-in;
+    }
+}
+
+/*mobile and small ipad*/
+@media (min-width: 480px) and (max-width: 767px) {
+    .aside-label{ display: none; transition: all 0.1s ease-in;}
+    .aside {
+        width: 120px;
+        
+        transition: width 0.5s ease-out;
+        display: flex;
+        
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: self-start;
+        transition: all 0.1s ease-in;
+    }
+    
+    .aside .nav-text {
+        display: none;
+        transition: all 0.1s ease-in;
+    }
+    .aside .aside-logo{
+        width: 45px;
+        height: 45px;
+        transition: all 0.1s ease-in;
     }
 }
 
@@ -160,16 +180,26 @@ text-decoration: none;
 @media (max-width: 480px) {
     .aside-label{ display: none;}
     .aside {
-        width: 70px;
-        left: -5px;
+        width: 120px;
+        
         transition: width 0.5s ease-out;
+        display: flex;
+        
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: self-start;
+        transition: all 0.1s ease-in;
     }
-    .aside li > a {
-        justify-content: space-around;
+    
+    .aside .nav-text {
+        display: none;
+        transition: all 0.1s ease-in;
     }
+   
 
     .aside .aside-logo{
         width: 45px;
         height: 45px;
+        transition: all 0.1s ease-in;
     }
 }

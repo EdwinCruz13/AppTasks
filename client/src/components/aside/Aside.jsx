@@ -14,7 +14,7 @@ export const Aside = () => {
                 </header>
                 <ul className="aside-list">
                     <li>
-                        <Link to="/">
+                        <Link to="/home" >
                             <i className="fa fa-home fa-aside"></i>
                             <span className="nav-text">
                                 Dashboard
@@ -23,7 +23,7 @@ export const Aside = () => {
                     </li>
 
                     <li>
-                        <Link to="/">
+                        <Link to="/tasks" className="active">
                             <i className="fa fa-tasks fa-aside"></i>
                             <span className="nav-text">
                                 Tasks
