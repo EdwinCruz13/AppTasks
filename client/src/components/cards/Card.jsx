@@ -11,6 +11,7 @@ import profile from '../../assets/profile-icon.png'
 export const Card = (task) => {
     return(
         <>
+        { console.log(task._id)} 
             <div className="card">
                 <div className="card-body">
                     <section className="card-left-side card-side">
