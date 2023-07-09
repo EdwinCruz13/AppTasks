@@ -1,0 +1,31 @@
+.loading{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: inherit;
+    background-color: rgba(205, 204, 209, 0.384);
+    opacity: 0.4;
+}
+
+.fa-loading{
+    font-size: 102px;
+    color: #2C016D;
+
+    animation-duration: 1s;
+    animation-name: rotate;
+    animation-iteration-count: infinite;
+}
+
+
+
+@keyframes rotate {
+    from {
+      transform: rotate(360deg);
+    }
+  
+    to {
+        transform: rotate(0deg);
+    }
+  }

@@ -16,8 +16,25 @@
 .section-body{ 
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   width: 100%;
+  height: 100%
+}
+
+.wrap-elemntary{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+  padding: 1.45rem 1.595rem;
+  gap:0.65rem;
+}
+
+.wrap-child{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  gap: 0.65rem;
 }
 
 
@@ -151,4 +168,37 @@ hr {
   margin-bottom: 0.5rem;
   border: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* large screen */
+@media (min-width: 1386px) {
+   
+}
+
+/*for desktop*/
+@media (min-width: 1246px) and (max-width: 1433px) {
+   
+}
+
+
+/*ipad and any device in potrait mode*/
+@media (min-width: 768px) and (max-width: 1282px) {
+  
+}
+
+/*mobile and small ipad*/
+@media (min-width: 480px) and (max-width: 767px) {
+  .wrap-child{
+    justify-content: space-evenly;
+  }
+}
+
+/*small device*/
+@media (max-width: 480px) {
+  .wrap-child{
+    justify-content: space-evenly;
+  }
+   
 }

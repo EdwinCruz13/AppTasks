@@ -2,12 +2,16 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     min-width: 0;
-    word-wrap: break-word;
+   
     background-color: #fff;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.35rem;
+
+    width: 330px;
 }
 
 .card-body {
@@ -16,23 +20,29 @@
     flex-wrap: nowrap;
     gap: 0.45rem;
     padding: 0.225rem 0.315rem;
+    height: 100%;
 }
 
 .card-side{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
     gap:0.15rem;
 }
 
     .card-side-header, .card-side-footer{
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         justify-content: space-between;
         width: 100%;
         margin: 5px 0 5px 0;
+        
     }
+
+
 
     .card-side img{
         background-repeat: no-repeat;
@@ -58,14 +68,35 @@
 
     .card-side span.card-titled{
         font-weight: bold;
-        font-size: 14px;
+        font-size: 15px;
+
+        width: 180px;
+        white-space:nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
     }
+
+    
     .card-side span.card-description{
         font-weight: normal;
-        font-size: 12px;
+        font-size: 14px;
         color: #BDBDBD;
         text-align: justify;
+
+        display: -webkit-box;
+        max-height: 8rem;
+        width: 200px;
+        height: 60px;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+        -webkit-box-orient:vertical;
+        -webkit-line-clamp: 3;
+        margin-bottom: 0.25rem;
+       
     }
+
+    
 
 .card-left-side {
     display: flex;
@@ -78,8 +109,63 @@
 
 .card-right-side {
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     align-items:flex-start;
     flex: 0 0 66.66%;
     /*background-color: #3c29a8cc;*/
+}
+
+
+/* large screen */
+@media (min-width: 1386px) {
+   
+}
+
+/*for desktop*/
+@media (min-width: 1246px) and (max-width: 1433px) {
+    .card{
+        width: 330px;
+    }
+}
+
+
+/*ipad and any device in potrait mode*/
+@media (min-width: 768px) and (max-width: 1282px) {
+    .card{
+        width: 100%;
+    }
+
+    .card-side span.card-description{
+        white-space:normal;
+        text-overflow:none;
+        width: auto;
+        height: auto;
+        display: block;
+     }
+}
+
+/*mobile and small ipad*/
+@media (min-width: 480px) and (max-width: 767px) {
+    .card{
+        width: 100%;
+    }
+
+    .card-side span.card-description{
+        white-space:normal;
+        text-overflow:none;
+        width: auto;
+        height: auto;
+        display: block;
+     }
+}
+
+/*small device*/
+@media (max-width: 480px) {
+    .card-side span.card-description{
+       white-space:normal;
+       text-overflow:none;
+       width: auto;
+       height: auto;
+       display: block;
+    }
 }
