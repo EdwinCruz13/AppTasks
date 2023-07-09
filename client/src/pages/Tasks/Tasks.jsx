@@ -15,8 +15,25 @@ import "./Tasks.css"
 
 
 export const Tasks = () => {
-    const { tasks, loading } = useContext(TaskContext);
+    const { tasks, task, loading, GetTasks } = useContext(TaskContext);
 
+    /**
+     * When the page is selected,
+     * it start to find any request
+     */
+    useEffect( () => {
+        GetTasks();
+    }, []);
+
+
+    /**
+    * click evento in order to catch the selected task
+    * @param {*} e 
+    */
+    const SelectedTask = (e) =>{
+        let _id = e.currentTarget.getAttribute("data-item")
+        console.log(_id);
+    }
     
     return(
         <section className="container">
@@ -33,8 +50,7 @@ export const Tasks = () => {
                                     {
                                         
                                         tasks.map( (item) => {
-                                            
-                                            return <Card key={item._id}  task = { item } />
+                                            return <Card key={item._id}  task = { item } SelectedTask = { SelectedTask } />
                                         }) 
                                     }
                                 </div>

@@ -12,6 +12,7 @@
     border-radius: 0.35rem;
 
     width: 330px;
+    cursor: pointer;
 }
 
 .card-body {

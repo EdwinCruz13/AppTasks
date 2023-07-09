@@ -67,6 +67,8 @@ export const Logout = async(req, resp) => {
 
 export const VerifyToken = async(req, resp) => {
     const { token } = req.cookies;
+
+    //console.log(token);
     if(!token) return resp.status(401).json({error: "Unathorized request"});
 
     jwt.verify(token, process.env.WEBTOKEN_SECRET, async(err, user) => {

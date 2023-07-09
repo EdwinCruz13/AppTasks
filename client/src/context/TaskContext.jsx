@@ -15,10 +15,6 @@ export const TaskContextProvider = ({ children }) => {
     const [task, setTask] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    useEffect( () => {
-        GetTasks();
-    }, []);
-
     /**
      * get the user's task list 
      */
@@ -41,7 +37,7 @@ export const TaskContextProvider = ({ children }) => {
 
     return(
         <TaskContext.Provider
-            value = {{ tasks, loading,  GetTasks } }
+            value = {{ tasks, task, loading,  GetTasks } }
         >
             { children }
         </TaskContext.Provider>
