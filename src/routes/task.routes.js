@@ -11,7 +11,7 @@ const router = Router();
 //create http path request
 router.get("/getTasks", UserAuth, getTasks);
 
-router.get("/getTask/:id", UserAuth, getTask);
+router.get("/getTask/:id", getTask);
 
 router.post("/createTask", AdminAuth, createTask);
 

@@ -180,7 +180,7 @@ text-decoration: none;
 @media (max-width: 480px) {
     .aside-label{ display: none;}
     .aside {
-        width: 120px;
+        width: 150px;
         
         transition: width 0.5s ease-out;
         display: flex;

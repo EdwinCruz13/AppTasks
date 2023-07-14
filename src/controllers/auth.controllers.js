@@ -68,23 +68,33 @@ export const Logout = async(req, resp) => {
 export const VerifyToken = async(req, resp) => {
     const { token } = req.cookies;
 
-    //console.log(token);
-    if(!token) return resp.status(401).json({error: "Unathorized request"});
+    console.log(token)
 
-    jwt.verify(token, process.env.WEBTOKEN_SECRET, async(err, user) => {
-        if(err) return resp.status(401).json({error: "Invalid user"});
+    try {
+        if(req.cookies){
 
-        const userFound = await UserModel.findById({ _id: user.Id});
-        
-
-        if(!userFound) return resp.status(401).json({error: "User not found"});
-
-        return resp.status(200).json({
-            id: userFound._id,
-            Username: userFound.Username,
-            Email: userFound.Email,
-            isAdmin: userFound.isAdmin,
-            Department: userFound.Department
-        });
-    })
+            //console.log(token);
+            if(!token) return resp.status(401).json({error: "Unathorized request"});
+    
+            jwt.verify(token, process.env.WEBTOKEN_SECRET, async(err, user) => {
+                if(err) return resp.status(401).json({error: "Invalid user"});
+    
+                const userFound = await UserModel.findById({ _id: user.Id});
+                
+    
+                if(!userFound) return resp.status(401).json({error: "User not found"});
+    
+                return resp.status(200).json({
+                    id: userFound._id,
+                    Username: userFound.Username,
+                    Email: userFound.Email,
+                    isAdmin: userFound.isAdmin,
+                    Department: userFound.Department
+                });
+            })
+    
+        }
+    } catch (error) {
+        console.log(error)
+    }
 }

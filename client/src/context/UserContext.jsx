@@ -1,6 +1,7 @@
 import { React, createContext, useEffect, useState  } from "react";
 import Cookies from "js-cookie";
 import { LoginRequest, LogoutRequest, VerifyTokenRequest } from "../api/auth.api";
+import { UsersRequest } from "../api/user.api";
 
 //create a context
 export const UserContext = createContext();
@@ -10,6 +11,7 @@ export const UserContextProvider = ({ children }) => {
     //here create functions, hooks and variable
 
     const [user, setUser] = useState(null);
+    const [users, setUsers] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [errorMessage, setErrorMessage] = useState({ responseError: "", usernameError: "", emailError: "", passwordError: ""});
     const [loading, setLoading] = useState(true);
@@ -18,6 +20,7 @@ export const UserContextProvider = ({ children }) => {
 
     //verify the token througt the cookie
     useEffect(() => {
+        GetUserList();
         async function verifyToken(){
             const cookies = Cookies.get();
            
@@ -35,6 +38,7 @@ export const UserContextProvider = ({ children }) => {
                     setLoading(false);
                     setIsAuthenticated(false);
                     setUser(null);
+                    Logout();
                     return
                 }
 
@@ -46,14 +50,33 @@ export const UserContextProvider = ({ children }) => {
                 //console.log(user, isAuthenticated);
         
             } catch (error) {
+                console.log("here the error " + error)
                 setLoading(false);
                 setIsAuthenticated(false);
                 setUser(null);
+
+                Logout();
             }
         }
 
         verifyToken();
     }, []);
+
+    const GetUserList = async() => {
+        try {
+            const list = await UsersRequest();
+            if(!list){
+                setUsers(null);
+                setLoading(false);
+                return
+            }
+            setUsers(list.data);
+            setLoading(false);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     /**
      * a function that verify the user from a form
@@ -94,7 +117,7 @@ export const UserContextProvider = ({ children }) => {
         try {
             
             const response = await LogoutRequest();
-            console.log(response);
+            
 
             if(!response.data.error){
                 setIsAuthenticated(false);
@@ -111,7 +134,7 @@ export const UserContextProvider = ({ children }) => {
 
     return (
         <UserContext.Provider 
-            value={{user, isAuthenticated, loading, errorMessage, Signin, Logout}}
+            value={{user, users, isAuthenticated, loading, errorMessage, Signin, Logout}}
         >
             { children }
         </UserContext.Provider>

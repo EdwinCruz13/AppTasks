@@ -17,13 +17,34 @@ import TaskStateModel from "../models/task.state.models.js";
  * @returns tasks
  */
 export const getTasks = async(req, resp) =>{
-    try {
-        //get the list from mongoose database
-        const tasks = await TaskModel.find().populate("AssignedTo").populate("AssignedBy").populate("Type").populate("CurrentState");
 
+    if(!req.authenticated_user)
+        resp.status(401).json({error: "no user authenticated"})
+
+    try {
+        let tasks;
+
+        //verify if the user is an admin, in this case, return all the tasks
+        //if it is not an admin, return just the user´s task list
+        const user = await UserModel.findById({_id: req.authenticated_user.Id});
+
+        //get the list from mongoose database
+        if(user.isAdmin === true){
+            //if it is an admin return all the tasks
+            tasks = await TaskModel.find().populate("AssignedTo").populate("AssignedBy").populate("Type").populate("CurrentState");
+        }
+
+        else{
+            //if it is not an admin return just user's tasks list
+            const _tasks = (await TaskModel.find().populate("AssignedTo").populate("AssignedBy").populate("Type").populate("CurrentState"));
+            tasks = _tasks.filter( (item) => { return user.Email === item.AssignedTo.Email})
+        }
+            
+        
         return resp.status(200).json(tasks);
     } catch (error) {
-        resp.status(400).json({error: "error: " + error});
+        console.log(error)
+        resp.status(500).json({error: "error: " + error});
     }
 }
 
