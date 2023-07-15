@@ -15,8 +15,8 @@ import "./TaskForm.css";
 export const TaskForm = ({ title }) => {
   const navigate = useNavigate();
   const { user, users } = useContext(UserContext);
-
   const { states, types, loading, selectedTask, SaveTask } = useContext(TaskContext);
+  const [titleForm, setTitleForm] = useState("");
 
   //create a usestate to handle the input from form
   const [data, setData] = useState({
@@ -79,28 +79,50 @@ export const TaskForm = ({ title }) => {
   //   spanValue.innerHTML = selectedTask.Completed + " %";
   // }, []);
 
+  useEffect(() => {
+    setTitleForm(title)
+  }, []);
+
 
   useEffect(() => {
-    //if it is false, the task is new
+    setTitleForm(title)
+    //if selectedTask is false, the task will be new
     if (selectedTask) {
+      let Stardate = new Date(selectedTask.StartDate);
+      let startmonth = ((Stardate.getMonth() + 1) < 10) ? "0"+(Stardate.getMonth() + 1) : Stardate.getMonth() + 1
+      let startYear = Stardate.getFullYear();
+      let startDay = (Stardate.getDate() < 10) ? "0"+Stardate.getDate() : Stardate.getDate();
+      let startDateMDY = `${startYear}-${startmonth}-${startDay}`;
+
+      /* Date format dd/mm/yyyy */
+      let Duedate = new Date(selectedTask.DueDate);
+      let duemonth = ((Duedate.getMonth() + 1) < 10) ? "0"+(Duedate.getMonth() + 1) : Duedate.getMonth() + 1
+      let dueYear = Duedate.getFullYear();
+      let dueDay = (Duedate.getDate() <10) ? "0"+Duedate.getDate() : Duedate.getDate();
+      let dueDateMDY = `${dueYear}-${duemonth}-${dueDay}`;
+
+
+      
       setData({
         Title: selectedTask.Title,
         Description: selectedTask.Description,
-        StartDate: selectedTask.StartDate,
-        DueDate: selectedTask.DueDate,
+        StartDate: startDateMDY, //selectedTask.StartDate,
+        DueDate: dueDateMDY, //selectedTask.DueDate,
         Notes: selectedTask.Notes,
         Completed: selectedTask.Completed,
-        AssignedTo: { Id: selectedTask.AssignedTo.Id },
+        AssignedTo: { Id: selectedTask.AssignedTo._id },
+        Type: { Id: selectedTask.Type._id },
+        CurrentState: { Id: selectedTask.CurrentState._id },
         AssignedBy: { Id: user.id },
-        Type: { Id: selectedTask.Type.Id },
-        CurrentState: { Id: selectedTask.CurrentState.Id }
       });
 
       let spanValue = document.getElementById("CompletedValue");
       spanValue.innerHTML = selectedTask.Completed + " %";
+
+      document.getElementById("Type").value = data.Type.Id
     }
 
-    //if it is true, the task will be updated
+    //if selectedTask is true, the task will be updated
     if (!selectedTask) {
       setData({
         Title: "",
@@ -119,7 +141,7 @@ export const TaskForm = ({ title }) => {
       spanValue.innerHTML = "50 %";
     }
 
-
+    
     
   }, [selectedTask]);
 
@@ -161,14 +183,17 @@ export const TaskForm = ({ title }) => {
 
   return (
     <form className="form form-task" onSubmit={handleSubmit}>
+      
       <div className="form-header">
-        <h2 className="form-title">{title}</h2>
+        <h2 className="form-title">{titleForm}</h2>
 
         <span className="form-description">
           And manage your tasks properly and better
         </span>
       </div>
 
+
+      {/* this is Title input */}
       <div className="form-section">
         <section className="form-column">
           <div className="form-group">
@@ -184,6 +209,7 @@ export const TaskForm = ({ title }) => {
             <div className="invalid-feedback">value is required</div>
           </div>
 
+          {/* this is Start input */}
           <div className="form-group form-inline">
             <div className="form-inline-input">
               <label htmlFor="StartDate">Start Date</label>
@@ -198,8 +224,9 @@ export const TaskForm = ({ title }) => {
               <div className="invalid-feedback">value is required</div>
             </div>
 
+            {/* this is duedate input */}
             <div className="form-inline-input">
-              <label htmlFor="DueDate">Start Date</label>
+              <label htmlFor="DueDate">Due Date</label>
               <input
                 type="date"
                 name="DueDate"
@@ -212,6 +239,7 @@ export const TaskForm = ({ title }) => {
             </div>
           </div>
 
+          {/* this is task types data */}
           <div className="form-group">
             <label htmlFor="Type">Task Type</label>
             <select
@@ -237,6 +265,7 @@ export const TaskForm = ({ title }) => {
             <div className="invalid-feedback">value is required</div>
           </div>
 
+          {/* this is states data */}
           <div className="form-group">
             <label htmlFor="CurrentState">Current State</label>
             <select
@@ -282,6 +311,7 @@ export const TaskForm = ({ title }) => {
           </div>
         </section>
 
+         {/* this isa description input */}
         <section className="form-column">
           <div className="form-group">
             <label htmlFor="Description">Description</label>
@@ -296,6 +326,7 @@ export const TaskForm = ({ title }) => {
             <div className="invalid-feedback">value is required</div>
           </div>
 
+          {/* this isa Notes input */}
           <div className="form-group">
             <label htmlFor="Notes">Notes</label>
             <textarea
@@ -309,6 +340,7 @@ export const TaskForm = ({ title }) => {
             <div className="invalid-feedback">value is required</div>
           </div>
 
+          {/* this isa AssignedTo data */}
           <div className="form-group">
             <label htmlFor="AssignedTo">Assigned To</label>
             <select

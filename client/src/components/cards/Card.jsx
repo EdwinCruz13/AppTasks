@@ -1,4 +1,4 @@
-import { React, useContext } from "react";
+import { React, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 //load the components
@@ -18,8 +18,8 @@ import profile from "../../assets/profile-icon.png";
  * @returns
  */
 export const Card = ({ task }) => {
-  const { openModal } = useContext(ModalContext);
-  const { GetTask, selectedTask } = useContext(TaskContext);
+  const { openModal, titleModal, updateTitle } = useContext(ModalContext);
+  const { GetTask } = useContext(TaskContext);
 
   /* Date format dd/mm/yyyy */
   let Stardate = new Date(task.StartDate);
@@ -33,19 +33,18 @@ export const Card = ({ task }) => {
    * click evento in order to catch the selected task
    * @param {*} e
    */
-  const SelectedTask = async(e) => {
+  const toSelectedTask = async(e) => {
     let _id = e.currentTarget.getAttribute("data-item");
     await GetTask(_id);
-
-    
+    await updateTitle('Update the task');
     openModal();
-    
+    console.log(titleModal.innerHTML)
   };
 
   return (
     <>
-      <Modal children={<TaskForm title={"Update the Task"} />} title=""/>
-      <div className="card" data-item={task._id} onClick={SelectedTask}>
+      {/* <Modal children={<TaskForm title="Update the task" />} title="Update the task"/> */}
+      <div className="card" data-item={task._id} onClick={toSelectedTask}>
         <div className="card-body">
           <section className="card-left-side card-side">
             <img src={profile} alt="profile-apptasks" />
@@ -56,7 +55,7 @@ export const Card = ({ task }) => {
             <div className="card-side-header">
               <span className="card-titled">{task.Title}</span>
               {/* <a href="#"><i className="fa fa fa-eye" aria-hidden="true"></i></a> */}
-              <Link className="actions" onClick={SelectedTask}>
+              <Link className="actions" onClick={toSelectedTask}>
                 <i className="fa fa-pencil" aria-hidden="true"></i>
               </Link>
             </div>

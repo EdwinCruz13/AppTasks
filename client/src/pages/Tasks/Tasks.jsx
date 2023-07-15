@@ -16,8 +16,8 @@ import { Modal } from "../../components/modals/Modal";
 import "./Tasks.css";
 
 export const Tasks = () => {
-  const { tasks, selectedTask, loading, GetTasks, setNew } = useContext(TaskContext);
-  const { openModal } = useContext(ModalContext);
+  const { tasks, loading, GetTasks, GetTask, setNew } = useContext(TaskContext);
+  const { openModal, titleModal, updateTitle } = useContext(ModalContext);
 
   /**
    * When the page is selected,
@@ -29,17 +29,20 @@ export const Tasks = () => {
 
 
   
-  const handleSave = ()=>{
+  const handleSaveClick = ()=>{
     setNew();
+    updateTitle("Create a new task");
     openModal();
-    
   }
+
+
+  
   
 
   return (
     <>
       
-      <Modal children={<TaskForm title={"Create a new Task"} />} title=""/>
+      <Modal children={<TaskForm title={"titleModal"} />} title={"titleModal"}/>
       <section className="container">
         <Aside />
 
@@ -92,7 +95,7 @@ export const Tasks = () => {
                       className="col-form-label"
                       style={{ padding: "1.14rem" }}
                     ></label>
-                    <Link className="actions" onClick={handleSave}>
+                    <Link className="actions" onClick={handleSaveClick}>
                       <i className="fa fa-floppy-o" aria-hidden="true"></i>{" "}
                       Nuevo
                     </Link>
@@ -111,6 +114,7 @@ export const Tasks = () => {
                       <Card
                         key={item._id}
                         task={item}
+                        
                       />
                     );
                   })}

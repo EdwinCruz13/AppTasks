@@ -10,6 +10,9 @@ export const ModalContextProvider = ({ children }) => {
     const [overlay, setOverlay] = useState(null);
     const [modalOpen, setModalOpen] = useState(null);
     const [modalClose, setModalClose] = useState(null);
+    const [titleModal, setTitleModal] = useState(null);
+
+   
 
     /**
      * Open the modal
@@ -18,7 +21,6 @@ export const ModalContextProvider = ({ children }) => {
         modal.classList.remove("hidden");
         overlay.classList.remove("hidden");
         modalSection.style.zIndex = 1000;
-
     }
 
     /**
@@ -30,8 +32,15 @@ export const ModalContextProvider = ({ children }) => {
         modalSection.style.zIndex = -1;
     }
 
+    const updateTitle =(message)=>{
+        if(!titleModal)
+            titleModal.innerHTML = message;
+
+        
+    }
+
   return (
-        <ModalContext.Provider value={{setModalSection, setModal, setOverlay, setModalOpen, setModalClose, openModal, closeModal}}>
+        <ModalContext.Provider value={{titleModal, setModalSection, setModal, setOverlay, setModalOpen, setModalClose, openModal, closeModal, setTitleModal, updateTitle}}>
             { children }
         </ModalContext.Provider>
     )

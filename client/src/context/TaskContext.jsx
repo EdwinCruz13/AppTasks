@@ -33,9 +33,9 @@ export const TaskContextProvider = ({ children }) => {
 
   useEffect(() => {
     async function loaddata() {
-        await GetTasks();
-        await GetStates();
-        await GetTaskTypes();
+      await GetTasks();
+      await GetStates();
+      await GetTaskTypes();
     }
 
     loaddata();
@@ -75,15 +75,17 @@ export const TaskContextProvider = ({ children }) => {
 
       setLoading(false);
       setSelectedTask(item.data);
-      
     } catch (error) {
       console.log(error);
     }
   };
 
-  const setNew = ()=>{
+  const setNew = async () => {
     setSelectedTask(null);
-  }
+    await GetTasks();
+    await GetStates();
+    await GetTaskTypes();
+  };
 
   /**
    * get the states list
@@ -125,7 +127,7 @@ export const TaskContextProvider = ({ children }) => {
 
   /**
    * create a new task
-   * @param {*} task 
+   * @param {*} task
    */
   const SaveTask = async (task) => {
     try {
@@ -137,7 +139,7 @@ export const TaskContextProvider = ({ children }) => {
         //refresh the page
         return "OK";
       } else {
-        return response.data.error
+        return response.data.error;
       }
     } catch (error) {
       setLoading(false);
@@ -147,7 +149,17 @@ export const TaskContextProvider = ({ children }) => {
 
   return (
     <TaskContext.Provider
-      value={{ tasks, selectedTask, states, types, loading,  GetTasks, GetTask, SaveTask, setNew }}
+      value={{
+        tasks,
+        selectedTask,
+        states,
+        types,
+        loading,
+        GetTasks,
+        GetTask,
+        SaveTask,
+        setNew
+      }}
     >
       {children}
     </TaskContext.Provider>

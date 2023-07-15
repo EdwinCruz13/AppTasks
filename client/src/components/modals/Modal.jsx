@@ -12,7 +12,7 @@ export const Modal = ({ children, title }) => {
     setOverlay,
     setModalOpen,
     setModalClose,
-    openModal,
+    setTitleModal,
     closeModal
   } = useContext(ModalContext);
 
@@ -24,6 +24,7 @@ export const Modal = ({ children, title }) => {
     setOverlay(document.querySelector(".overlay"));
     setModalOpen(document.querySelector(".modal-open"));
     setModalClose(document.querySelector(".modal-close"));
+    setTitleModal(document.querySelector(".modal-title"));
   }, []);
 
   return (

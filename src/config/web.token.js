@@ -12,7 +12,7 @@ export function GenerateToken(payload)
         jwt.sign(
             payload, 
             process.env.WEBTOKEN_SECRET, 
-            { expiresIn: "1h"}, 
+            { expiresIn: "1d"}, 
             (err, token) => {
                 if(err) 
                     reject(err)
