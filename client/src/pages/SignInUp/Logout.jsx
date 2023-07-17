@@ -13,7 +13,7 @@ export const Logout = () => {
         }
 
         disconnect();
-        navigate("/home");
+        navigate("/signin");
     }, []);
 
     return(

@@ -1,10 +1,6 @@
-import { React, useContext, useEffect } from "react";
+import { React } from "react";
 import { Link } from "react-router-dom";
 
-
-//import context
-import { TaskContext } from "../../context/TaskContext";
-import { ModalContext } from "../../context/ModalContext";
 
 import "./Card.css";
 import profile from "../../assets/profile-icon.png";
@@ -14,7 +10,7 @@ import profile from "../../assets/profile-icon.png";
  * @param {*} task
  * @returns
  */
-export const Card = ({ task, toSelectedTask }) => {
+export const CardTask = ({ task, toSelectedTask }) => {
   /* Date format dd/mm/yyyy */
   let Stardate = new Date(task.StartDate);
   let startDateMDY = `${Stardate.getDate()}/${Stardate.getMonth() + 1}/${Stardate.getFullYear()}`;
@@ -27,7 +23,6 @@ export const Card = ({ task, toSelectedTask }) => {
 
   return (
     <>
-      {/* <Modal children={<TaskForm title="Update the task" />} title="Update the task"/> */}
       <div className="card" data-item={task._id} onClick={toSelectedTask}>
         <div className="card-body">
           <section className="card-left-side card-side">
@@ -38,7 +33,6 @@ export const Card = ({ task, toSelectedTask }) => {
           <section className="card-right-side card-side">
             <div className="card-side-header">
               <span className="card-titled">{task.Title}</span>
-              {/* <a href="#"><i className="fa fa fa-eye" aria-hidden="true"></i></a> */}
               <Link className="actions" onClick={toSelectedTask}>
                 <i className="fa fa-pencil" aria-hidden="true"></i>
               </Link>

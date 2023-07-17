@@ -15,6 +15,13 @@
     width: 330px;
     height: auto;
     cursor: pointer;
+
+    transition: background-color ease-in-out 0.15s;
+}
+
+.card:hover{
+    background-color: #2c016d1c;
+    transition: background-color ease-in-out 0.15s;
 }
 
 .card-body {
@@ -116,6 +123,13 @@
     align-items:flex-start;
     flex: 0 0 66.66%;
     /*background-color: #3c29a8cc;*/
+}
+
+.card-container{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 100%;
 }
 
 

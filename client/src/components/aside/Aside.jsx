@@ -1,10 +1,12 @@
-import { React } from "react";
-import { Link } from "react-router-dom";
+import { React, useEffect, useRef, useState } from "react";
+import { NavLink  } from "react-router-dom";
 
 import logo from '../../assets/vite.svg';
 import "./Aside.css";
 
 export const Aside = () => {
+      
+
     return (
         <>
            <aside className="aside">
@@ -14,48 +16,48 @@ export const Aside = () => {
                 </header>
                 <ul className="aside-list">
                     <li>
-                        <Link to="/home" >
-                            <i className="fa fa-home fa-aside"></i>
+                        <NavLink to="/dashboard" id="dashboard">
+                            <i className="fa fa-tachometer fa-aside"></i>
                             <span className="nav-text">
                                 Dashboard
                             </span>
-                        </Link>
+                        </NavLink>
                     </li>
 
                     <li>
-                        <Link to="/tasks" className="active">
+                        <NavLink to="/tasks" id="tasks" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
                             <i className="fa fa-tasks fa-aside"></i>
                             <span className="nav-text">
                                 Tasks
                             </span>
-                        </Link>
+                        </NavLink>
                     </li>
 
                     <li>
-                        <Link to="/tasktypes">
+                        <NavLink to="/tasktypes" id="tasktypes" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
                             <i className="fa fa-tags fa-aside"></i>
                             <span className="nav-text">
                                 Task Types
                             </span>
-                        </Link>
+                        </NavLink>
                     </li>
 
                     <li>
-                        <Link to="/states">
+                        <NavLink to="/states" id="states" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
                             <i className="fa fa-tint fa-aside"></i>
                             <span className="nav-text">
                                States
                             </span>
-                        </Link>
+                        </NavLink>
                     </li>
 
                     <li>
-                        <Link to="/users">
+                        <NavLink to="/users" id="users" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
                             <i className="fa fa-users fa-aside"></i>
                             <span className="nav-text">
                                Users
                             </span>
-                        </Link>
+                        </NavLink>
                     </li>
                 </ul>
            </aside>

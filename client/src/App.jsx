@@ -9,6 +9,7 @@ import { Home } from "./pages/Home/Home";
 import { SignIn } from "./pages/SignInUp/SignIn";
 import { SignUp } from "./pages/SignInUp/SignUp";
 import { Logout } from "./pages/SignInUp/Logout";
+import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { Tasks } from "./pages/Tasks/Tasks";
 import { TaskTypes } from "./pages/TaskTypes/TaskTypes";
 import { States } from "./pages/States/States";
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/logout" element={<Logout />} />
 
                 <Route element={<ProtectedRoute />}>
+                  <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/tasks" element={<Tasks />} />
                   <Route path="/tasktypes" element={<TaskTypes />} />
                   <Route path="/states" element={<States />} />

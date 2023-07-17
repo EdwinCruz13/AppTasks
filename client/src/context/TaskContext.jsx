@@ -183,7 +183,7 @@ export const TaskContextProvider = ({ children }) => {
         GetTask,
         SaveTask,
         UpdateTask,
-        setNew
+        setNew,
       }}
     >
       {children}

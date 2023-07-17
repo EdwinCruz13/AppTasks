@@ -8,7 +8,7 @@ import { ModalContext } from "../../context/ModalContext";
 //import components
 import { Aside } from "../../components/aside/Aside";
 import { Navbar } from "../../components/navbar/Navbar";
-import { Card } from "../../components/cards/Card";
+import { CardTask } from "../../components/cards/CardTask";
 import { Loading } from "../../components/loading/Loading";
 import { TaskForm } from "../../components/forms/TaskForm";
 import { Modal } from "../../components/modals/Modal";
@@ -126,7 +126,7 @@ export const Tasks = () => {
                   
                   {tasks.map((item) => {
                     return (
-                      <Card
+                      <CardTask
                         key={item._id}
                         task={item}
                         toSelectedTask={toSelectedTask}
