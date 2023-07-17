@@ -1,9 +1,26 @@
 import axios  from "./axios.instance";
 
-
+/**
+ * Create a new task
+ * @param {*} task 
+ * @returns 
+ */
 export const CreateTaskRequest = async(task) =>{
     try {
         const response = await axios.post(`tasks/createtask`, task);
+        return response;
+    } catch (error) {
+        return error.response;
+    }
+}
+/**
+ * update an especific task
+ * @param {*} task 
+ * @returns 
+ */
+export const UpdateTaskRequest = async(task) =>{
+    try {
+        const response = await axios.put(`tasks/updatetask/${task._id}`, task);
         return response;
     } catch (error) {
         return error.response;

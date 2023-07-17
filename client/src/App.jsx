@@ -10,7 +10,9 @@ import { SignIn } from "./pages/SignInUp/SignIn";
 import { SignUp } from "./pages/SignInUp/SignUp";
 import { Logout } from "./pages/SignInUp/Logout";
 import { Tasks } from "./pages/Tasks/Tasks";
-import { NewTask } from "./pages/Tasks/NewTask";
+import { TaskTypes } from "./pages/TaskTypes/TaskTypes";
+import { States } from "./pages/States/States";
+import { Users } from "./pages/Users/Users";
 
 //import context provider
 import { ModalContextProvider } from "./context/ModalContext";
@@ -33,7 +35,9 @@ function App() {
 
                 <Route element={<ProtectedRoute />}>
                   <Route path="/tasks" element={<Tasks />} />
-                  <Route path="/newTask" element={<NewTask />} />
+                  <Route path="/tasktypes" element={<TaskTypes />} />
+                  <Route path="/states" element={<States />} />
+                  <Route path="/users" element={<Users />} />
                 </Route>
               </Routes>
             </BrowserRouter>

@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import {
   CreateTaskRequest,
+  UpdateTaskRequest,
   TasksRequest,
   TasksDetailRequest,
   StatesRequest,
@@ -81,10 +82,10 @@ export const TaskContextProvider = ({ children }) => {
   };
 
   const setNew = async () => {
-    setSelectedTask(null);
-    await GetTasks();
-    await GetStates();
-    await GetTaskTypes();
+    await setSelectedTask(null);
+    // await GetTasks();
+    // await GetStates();
+    // await GetTaskTypes();
   };
 
   /**
@@ -147,6 +148,29 @@ export const TaskContextProvider = ({ children }) => {
     }
   };
 
+
+  /**
+   * create a new task
+   * @param {*} task
+   */
+  const UpdateTask = async (task) => {
+    try {
+      //do a request using a new AxiosRequest object
+      const response = await UpdateTaskRequest(task);
+
+      //check the response from api rest
+      if (!response.data.error) {
+        //refresh the page
+        return "OK";
+      } else {
+        return response.data.error;
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
   return (
     <TaskContext.Provider
       value={{
@@ -158,6 +182,7 @@ export const TaskContextProvider = ({ children }) => {
         GetTasks,
         GetTask,
         SaveTask,
+        UpdateTask,
         setNew
       }}
     >

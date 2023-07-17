@@ -1,4 +1,4 @@
-import { React, useContext, useEffect } from "react";
+import { React, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 //import context
@@ -16,8 +16,9 @@ import { Modal } from "../../components/modals/Modal";
 import "./Tasks.css";
 
 export const Tasks = () => {
-  const { tasks, loading, GetTasks, GetTask, setNew } = useContext(TaskContext);
-  const { openModal, titleModal, updateTitle } = useContext(ModalContext);
+  const [ titleModal, setTitleModal] = useState("");
+  const { tasks, loading, GetTasks, GetTask, selectedTask, setNew } = useContext(TaskContext);
+  const { openModal } = useContext(ModalContext);
 
   /**
    * When the page is selected,
@@ -27,13 +28,27 @@ export const Tasks = () => {
     GetTasks();
   }, []);
 
+  useEffect(() => {
+    if(!selectedTask) setTitleModal("Create a task")
+    if(selectedTask) setTitleModal("Update a task")
+  }, [selectedTask]);
+
 
   
   const handleSaveClick = ()=>{
     setNew();
-    updateTitle("Create a new task");
     openModal();
   }
+
+  /**
+   * click evento in order to catch the selected task
+   * @param {*} e
+   */
+  const toSelectedTask = async(e) => {
+    let _id = e.currentTarget.getAttribute("data-item");
+    await GetTask(_id);
+    openModal();
+  };
 
 
   
@@ -42,7 +57,7 @@ export const Tasks = () => {
   return (
     <>
       
-      <Modal children={<TaskForm title={"titleModal"} />} title={"titleModal"}/>
+      <Modal children={<TaskForm title={titleModal} />} title={titleModal}/>
       <section className="container">
         <Aside />
 
@@ -55,7 +70,7 @@ export const Tasks = () => {
               <section className="filter-date-row">
                 <div className="group-filter-item">
                   <label htmlFor="FI" className="col-form-label">
-                    Fecha Inicial
+                    Start Date
                   </label>
                   <input
                     className="form-control"
@@ -67,7 +82,7 @@ export const Tasks = () => {
 
                 <div className="group-filter-item">
                   <label htmlFor="FF" className="col-form-label">
-                    Fecha Fin
+                    Due Date
                   </label>
                   <input
                     className="form-control"
@@ -83,7 +98,7 @@ export const Tasks = () => {
                     className="col-form-label"
                     style={{ padding: "1.14rem" }}
                   ></label>
-                  <button className="btn btn-primary">Buscar</button>
+                  <button className="btn btn-primary">Search</button>
                 </div>
               </section>
 
@@ -97,7 +112,7 @@ export const Tasks = () => {
                     ></label>
                     <Link className="actions" onClick={handleSaveClick}>
                       <i className="fa fa-floppy-o" aria-hidden="true"></i>{" "}
-                      Nuevo
+                      New
                     </Link>
                   </div>
                 </div>
@@ -114,7 +129,7 @@ export const Tasks = () => {
                       <Card
                         key={item._id}
                         task={item}
-                        
+                        toSelectedTask={toSelectedTask}
                       />
                     );
                   })}

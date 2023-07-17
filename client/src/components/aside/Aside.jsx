@@ -32,7 +32,7 @@ export const Aside = () => {
                     </li>
 
                     <li>
-                        <Link to="/">
+                        <Link to="/tasktypes">
                             <i className="fa fa-tags fa-aside"></i>
                             <span className="nav-text">
                                 Task Types
@@ -41,7 +41,7 @@ export const Aside = () => {
                     </li>
 
                     <li>
-                        <Link to="/">
+                        <Link to="/states">
                             <i className="fa fa-tint fa-aside"></i>
                             <span className="nav-text">
                                States
@@ -50,7 +50,7 @@ export const Aside = () => {
                     </li>
 
                     <li>
-                        <Link to="/">
+                        <Link to="/users">
                             <i className="fa fa-users fa-aside"></i>
                             <span className="nav-text">
                                Users

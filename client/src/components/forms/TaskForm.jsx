@@ -15,11 +15,11 @@ import "./TaskForm.css";
 export const TaskForm = ({ title }) => {
   const navigate = useNavigate();
   const { user, users } = useContext(UserContext);
-  const { states, types, loading, selectedTask, SaveTask } = useContext(TaskContext);
-  const [titleForm, setTitleForm] = useState("");
+  const { states, types, loading, selectedTask, SaveTask, UpdateTask } = useContext(TaskContext);
 
   //create a usestate to handle the input from form
   const [data, setData] = useState({
+    _id: "",
     Title: "",
     Description: "",
     StartDate: "",
@@ -80,12 +80,6 @@ export const TaskForm = ({ title }) => {
   // }, []);
 
   useEffect(() => {
-    setTitleForm(title)
-  }, []);
-
-
-  useEffect(() => {
-    setTitleForm(title)
     //if selectedTask is false, the task will be new
     if (selectedTask) {
       let Stardate = new Date(selectedTask.StartDate);
@@ -101,9 +95,10 @@ export const TaskForm = ({ title }) => {
       let dueDay = (Duedate.getDate() <10) ? "0"+Duedate.getDate() : Duedate.getDate();
       let dueDateMDY = `${dueYear}-${duemonth}-${dueDay}`;
 
-
+      
       
       setData({
+        _id: selectedTask._id,
         Title: selectedTask.Title,
         Description: selectedTask.Description,
         StartDate: startDateMDY, //selectedTask.StartDate,
@@ -125,6 +120,7 @@ export const TaskForm = ({ title }) => {
     //if selectedTask is true, the task will be updated
     if (!selectedTask) {
       setData({
+        _id: "",
         Title: "",
         Description: "",
         StartDate: "",
@@ -171,10 +167,25 @@ export const TaskForm = ({ title }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //save the task
-    let save = await SaveTask(data);
-    if (save === "OK") refreshPage();
-    else alert(save);
+    //check the creating or updating action
+    if(!selectedTask) {
+        //save the task
+        let save = await SaveTask(data);
+        if (save === "OK") refreshPage();
+        else alert(save);
+    }
+
+    if(selectedTask) {
+      //update the task
+      
+      data.StartDate = new Date(data.StartDate.replace("-", "/"));
+      data.DueDate = new Date(data.DueDate.replace("-", "/"));
+      let save = await UpdateTask(data);
+      if (save === "OK") refreshPage();
+      else alert(save);
+  }
+
+    
   };
 
   const refreshPage = () => {
@@ -185,7 +196,7 @@ export const TaskForm = ({ title }) => {
     <form className="form form-task" onSubmit={handleSubmit}>
       
       <div className="form-header">
-        <h2 className="form-title">{titleForm}</h2>
+        <h2 className="form-title">{title}</h2>
 
         <span className="form-description">
           And manage your tasks properly and better

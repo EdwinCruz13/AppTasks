@@ -14,7 +14,7 @@ import UserModel from "../models/user.models.js";
 export const Login = async(req, resp) => {
     const { Email, Password} = req.body;
 
-    //console.log(req.authenticated_user)
+    
 
     try {
         //find the user by email
@@ -68,12 +68,11 @@ export const Logout = async(req, resp) => {
 export const VerifyToken = async(req, resp) => {
     const { token } = req.cookies;
 
-    console.log(token)
 
     try {
         if(req.cookies){
 
-            //console.log(token);
+            
             if(!token) return resp.status(401).json({error: "Unathorized request"});
     
             jwt.verify(token, process.env.WEBTOKEN_SECRET, async(err, user) => {
@@ -95,6 +94,7 @@ export const VerifyToken = async(req, resp) => {
     
         }
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        resp.status(500).json({error: "error: " + error});
     }
 }

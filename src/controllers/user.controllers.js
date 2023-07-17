@@ -17,7 +17,7 @@ export const getUsers = async(req, resp) => {
         //get all users created by mongoDB
         const users = await UserModel.find().populate("Department");
 
-        console.log(req.authenticated_user);
+        
 
         //return the list
         return resp.status(200).json(users);

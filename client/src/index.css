@@ -241,7 +241,11 @@ textarea{
 
 /*for desktop*/
 @media (min-width: 1246px) and (max-width: 1433px) {
-   
+  .wrap-child{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap:12px;
+  }
 }
 
 

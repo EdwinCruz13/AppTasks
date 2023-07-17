@@ -74,7 +74,7 @@ export const createTask = async(req, resp) => {
     //get the main properties
     const { Title, Description, StartDate, DueDate, Notes, Completed, AssignedTo, Type, CurrentState } = req.body;
     var realCompleted = 0;
-    
+    console.log(req.body)
 
     //initializa session with transaction
     const session = await dbTransaction();
@@ -118,6 +118,7 @@ export const createTask = async(req, resp) => {
     } catch (error) {
         session.abortTransaction();
         session.endSession();
+        console.log(error)
         resp.status(400).json({error: "error: " + error});
     }
 }
@@ -130,9 +131,12 @@ export const createTask = async(req, resp) => {
  * @returns 
  */
 export const updateTask = async(req, resp) =>{
+    
     //get the main properties
-    const { Title, Description, StartDate, DueDate, Notes, Completed, AssignedTo, Type, CurrentState, Comments } = req.body;
+    const { _id, Title, Description, StartDate, DueDate, Notes, Completed, AssignedTo, Type, CurrentState, Comments } = req.body;
     var realCompleted = 0;
+
+    console.log(req.body)
 
     //initializa session with transaction
     const session = await dbTransaction();
@@ -191,6 +195,7 @@ export const updateTask = async(req, resp) =>{
     } catch (error) {
         await session.abortTransaction();
         await session.endSession();
+        console.log(error)
         resp.status(400).json({error: "error: " + error});
     }
 }

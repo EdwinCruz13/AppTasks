@@ -1,9 +1,6 @@
 import { React, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-//load the components
-import { Modal } from "../../components/modals/Modal";
-import { TaskForm } from "../../components/forms/TaskForm";
 
 //import context
 import { TaskContext } from "../../context/TaskContext";
@@ -17,10 +14,7 @@ import profile from "../../assets/profile-icon.png";
  * @param {*} task
  * @returns
  */
-export const Card = ({ task }) => {
-  const { openModal, titleModal, updateTitle } = useContext(ModalContext);
-  const { GetTask } = useContext(TaskContext);
-
+export const Card = ({ task, toSelectedTask }) => {
   /* Date format dd/mm/yyyy */
   let Stardate = new Date(task.StartDate);
   let startDateMDY = `${Stardate.getDate()}/${Stardate.getMonth() + 1}/${Stardate.getFullYear()}`;
@@ -29,17 +23,7 @@ export const Card = ({ task }) => {
   let Duedate = new Date(task.DueDate);
   let dueDateMDY = `${Duedate.getDate()}/${Duedate.getMonth() + 1}/${Duedate.getFullYear()}`;
 
-  /**
-   * click evento in order to catch the selected task
-   * @param {*} e
-   */
-  const toSelectedTask = async(e) => {
-    let _id = e.currentTarget.getAttribute("data-item");
-    await GetTask(_id);
-    await updateTitle('Update the task');
-    openModal();
-    console.log(titleModal.innerHTML)
-  };
+  
 
   return (
     <>
