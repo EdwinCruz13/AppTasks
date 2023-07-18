@@ -8,7 +8,7 @@ import { ModalContext } from "../../context/ModalContext";
 //import components
 import { Aside } from "../../components/aside/Aside";
 import { Navbar } from "../../components/navbar/Navbar";
-import { CardTask } from "../../components/cards/CardTask";
+import { Card } from "../../components/cards/Card";
 import { Loading } from "../../components/loading/Loading";
 import { TaskForm } from "../../components/forms/TaskForm";
 import { Modal } from "../../components/modals/Modal";
@@ -16,8 +16,9 @@ import { Modal } from "../../components/modals/Modal";
 import "./Tasks.css";
 
 export const Tasks = () => {
-  const [ titleModal, setTitleModal] = useState("");
-  const { tasks, loading, GetTasks, GetTask, selectedTask, setNew } = useContext(TaskContext);
+  const [titleModal, setTitleModal] = useState("");
+  const { tasks, loading, GetTasks, GetTask, selectedTask, setNew } =
+    useContext(TaskContext);
   const { openModal } = useContext(ModalContext);
 
   /**
@@ -29,35 +30,31 @@ export const Tasks = () => {
   }, []);
 
   useEffect(() => {
-    if(!selectedTask) setTitleModal("Create a task")
-    if(selectedTask) setTitleModal("Update a task")
+    if (!selectedTask) setTitleModal("Create a task");
+    if (selectedTask) setTitleModal("Update a task");
   }, [selectedTask]);
 
-
-  
-  const handleSaveClick = ()=>{
+  /**
+   * Open a new form in order to save a new task
+   */
+  const handleSaveClick = () => {
     setNew();
     openModal();
-  }
+  };
 
   /**
    * click evento in order to catch the selected task
    * @param {*} e
    */
-  const toSelectedTask = async(e) => {
+  const toSelectedTask = async (e) => {
     let _id = e.currentTarget.getAttribute("data-item");
     await GetTask(_id);
     openModal();
   };
 
-
-  
-  
-
   return (
     <>
-      
-      <Modal children={<TaskForm title={titleModal} />} title={titleModal}/>
+      <Modal children={<TaskForm title={titleModal} />} title={titleModal} />
       <section className="container">
         <Aside />
 
@@ -65,8 +62,7 @@ export const Tasks = () => {
           <Navbar />
 
           <div className="wrap-elemntary">
-            
-            <div className="filter-option-header ">
+            <div className="filter-option-header">
               <section className="filter-date-row">
                 <div className="group-filter-item">
                   <label htmlFor="FI" className="col-form-label">
@@ -111,8 +107,7 @@ export const Tasks = () => {
                       style={{ padding: "1.14rem" }}
                     ></label>
                     <Link className="actions" onClick={handleSaveClick}>
-                      <i className="fa fa-floppy-o" aria-hidden="true"></i>{" "}
-                      New
+                      <i className="fa fa-floppy-o" aria-hidden="true"></i> New
                     </Link>
                   </div>
                 </div>
@@ -122,14 +117,32 @@ export const Tasks = () => {
             {!loading ? (
               tasks &&
               tasks.length > 0 && (
-                <div className="wrap-child" style={{width:"100%"}}>
-                  
+                <div className="wrap-child" style={{ width: "100%" }}>
                   {tasks.map((item) => {
+                    /* Date format dd/mm/yyyy */
+                    let Stardate = new Date(item.StartDate);
+                    let startDateMDY = `${Stardate.getDate()}/${
+                      Stardate.getMonth() + 1
+                    }/${Stardate.getFullYear()}`;
+
+                    /* Date format dd/mm/yyyy */
+                    let Duedate = new Date(item.DueDate);
+                    let dueDateMDY = `${Duedate.getDate()}/${
+                      Duedate.getMonth() + 1
+                    }/${Duedate.getFullYear()}`;
+
                     return (
-                      <CardTask
+                      <Card
                         key={item._id}
-                        task={item}
-                        toSelectedTask={toSelectedTask}
+                        _id={item._id}
+                        Title={item.Title}
+                        SubTitle={item.AssignedTo.Username}
+                        Description={item.Description}
+                        Image={item.Title}
+                        Label1={startDateMDY}
+                        Label2={dueDateMDY}
+                        Label3={item.Completed + " %"}
+                        action={toSelectedTask}
                       />
                     );
                   })}

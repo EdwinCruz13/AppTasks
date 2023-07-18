@@ -20,29 +20,33 @@ import { ModalContextProvider } from "./context/ModalContext";
 import { UserContextProvider } from "./context/UserContext";
 import { TaskContextProvider } from "./context/TaskContext";
 
+import { TaskTypeContextProvider } from "./context/TaskTypeContext";
+
 function App() {
   return (
     <>
       <ModalContextProvider>
         <UserContextProvider>
           <TaskContextProvider>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/home" element={<Home />} />
-                <Route exact path="/" element={<SignIn />} />
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/logout" element={<Logout />} />
+            <TaskTypeContextProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/home" element={<Home />} />
+                  <Route exact path="/" element={<SignIn />} />
+                  <Route path="/signin" element={<SignIn />} />
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route path="/logout" element={<Logout />} />
 
-                <Route element={<ProtectedRoute />}>
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/tasks" element={<Tasks />} />
-                  <Route path="/tasktypes" element={<TaskTypes />} />
-                  <Route path="/states" element={<States />} />
-                  <Route path="/users" element={<Users />} />
-                </Route>
-              </Routes>
-            </BrowserRouter>
+                  <Route element={<ProtectedRoute />}>
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/tasks" element={<Tasks />} />
+                    <Route path="/tasktypes" element={<TaskTypes />} />
+                    <Route path="/states" element={<States />} />
+                    <Route path="/users" element={<Users />} />
+                  </Route>
+                </Routes>
+              </BrowserRouter>
+            </TaskTypeContextProvider>
           </TaskContextProvider>
         </UserContextProvider>
       </ModalContextProvider>

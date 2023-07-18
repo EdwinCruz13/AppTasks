@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 //import user context
 import { UserContext } from "../../context/UserContext";
 import { TaskContext } from "../../context/TaskContext";
+import { TaskTypeContext } from "../../context/TaskTypeContext";
+import { ModalContext } from "../../context/ModalContext";
 
 import "./TaskForm.css";
 
@@ -15,7 +17,10 @@ import "./TaskForm.css";
 export const TaskForm = ({ title }) => {
   const navigate = useNavigate();
   const { user, users } = useContext(UserContext);
-  const { states, types, loading, selectedTask, SaveTask, UpdateTask } = useContext(TaskContext);
+  const { states, loading, selectedTask, SaveTask, UpdateTask } =
+    useContext(TaskContext);
+  const { types } = useContext(TaskTypeContext);
+  const { closeModal } = useContext(ModalContext);
 
   //create a usestate to handle the input from form
   const [data, setData] = useState({
@@ -29,74 +34,33 @@ export const TaskForm = ({ title }) => {
     AssignedTo: { Id: "" },
     AssignedBy: { Id: user.id },
     Type: { Id: "" },
-    CurrentState: { Id: "" }
+    CurrentState: { Id: "" },
   });
-
-  /**
-   * the useEffect allows the data is loaded, according if the task will be new or updated
-   */
-  // useEffect(() => {
-  //   //if it is false, the task is new
-  //   if (selectedTask) {
-  //     setData({
-  //       Title: selectedTask.Title,
-  //       Description: selectedTask.Description,
-  //       StartDate: selectedTask.StartDate,
-  //       DueDate: selectedTask.DueDate,
-  //       Notes: selectedTask.Notes,
-  //       Completed: selectedTask.Completed,
-  //       AssignedTo: { Id: selectedTask.AssignedTo.Id },
-  //       AssignedBy: { Id: user.id },
-  //       Type: { Id: selectedTask.Type.Id },
-  //       CurrentState: { Id: selectedTask.CurrentState.Id }
-  //     });
-
-  //     let spanValue = document.getElementById("CompletedValue");
-  //     spanValue.innerHTML = selectedTask.Completed + " %";
-  //   }
-
-  //   //if it is true, the task will be updated
-  //   if (!selectedTask) {
-  //     setData({
-  //       Title: "",
-  //       Description: "",
-  //       StartDate: "",
-  //       DueDate: "",
-  //       Notes: "",
-  //       Completed: 50,
-  //       AssignedTo: { Id: "" },
-  //       AssignedBy: { Id: user.id },
-  //       Type: { Id: "" },
-  //       CurrentState: { Id: "" }
-  //     });
-
-  //     let spanValue = document.getElementById("CompletedValue");
-  //     spanValue.innerHTML = "50 %";
-  //   }
-
-
-  //   let spanValue = document.getElementById("CompletedValue");
-  //   spanValue.innerHTML = selectedTask.Completed + " %";
-  // }, []);
 
   useEffect(() => {
     //if selectedTask is false, the task will be new
     if (selectedTask) {
       let Stardate = new Date(selectedTask.StartDate);
-      let startmonth = ((Stardate.getMonth() + 1) < 10) ? "0"+(Stardate.getMonth() + 1) : Stardate.getMonth() + 1
+      let startmonth =
+        Stardate.getMonth() + 1 < 10
+          ? "0" + (Stardate.getMonth() + 1)
+          : Stardate.getMonth() + 1;
       let startYear = Stardate.getFullYear();
-      let startDay = (Stardate.getDate() < 10) ? "0"+Stardate.getDate() : Stardate.getDate();
+      let startDay =
+        Stardate.getDate() < 10 ? "0" + Stardate.getDate() : Stardate.getDate();
       let startDateMDY = `${startYear}-${startmonth}-${startDay}`;
 
       /* Date format dd/mm/yyyy */
       let Duedate = new Date(selectedTask.DueDate);
-      let duemonth = ((Duedate.getMonth() + 1) < 10) ? "0"+(Duedate.getMonth() + 1) : Duedate.getMonth() + 1
+      let duemonth =
+        Duedate.getMonth() + 1 < 10
+          ? "0" + (Duedate.getMonth() + 1)
+          : Duedate.getMonth() + 1;
       let dueYear = Duedate.getFullYear();
-      let dueDay = (Duedate.getDate() <10) ? "0"+Duedate.getDate() : Duedate.getDate();
+      let dueDay =
+        Duedate.getDate() < 10 ? "0" + Duedate.getDate() : Duedate.getDate();
       let dueDateMDY = `${dueYear}-${duemonth}-${dueDay}`;
 
-      
-      
       setData({
         _id: selectedTask._id,
         Title: selectedTask.Title,
@@ -114,7 +78,7 @@ export const TaskForm = ({ title }) => {
       let spanValue = document.getElementById("CompletedValue");
       spanValue.innerHTML = selectedTask.Completed + " %";
 
-      document.getElementById("Type").value = data.Type.Id
+      document.getElementById("Type").value = data.Type.Id;
     }
 
     //if selectedTask is true, the task will be updated
@@ -130,15 +94,12 @@ export const TaskForm = ({ title }) => {
         AssignedTo: { Id: "" },
         AssignedBy: { Id: user.id },
         Type: { Id: "" },
-        CurrentState: { Id: "" }
+        CurrentState: { Id: "" },
       });
 
       let spanValue = document.getElementById("CompletedValue");
       spanValue.innerHTML = "50 %";
     }
-
-    
-    
   }, [selectedTask]);
 
   /**
@@ -168,24 +129,22 @@ export const TaskForm = ({ title }) => {
     e.preventDefault();
 
     //check the creating or updating action
-    if(!selectedTask) {
-        //save the task
-        let save = await SaveTask(data);
-        if (save === "OK") refreshPage();
-        else alert(save);
+    if (!selectedTask) {
+      //save the task
+      let save = await SaveTask(data);
+      if (save === "OK") refreshPage();
+      else alert(save);
     }
 
-    if(selectedTask) {
+    if (selectedTask) {
       //update the task
-      
+
       data.StartDate = new Date(data.StartDate.replace("-", "/"));
       data.DueDate = new Date(data.DueDate.replace("-", "/"));
       let save = await UpdateTask(data);
       if (save === "OK") refreshPage();
       else alert(save);
-  }
-
-    
+    }
   };
 
   const refreshPage = () => {
@@ -194,7 +153,6 @@ export const TaskForm = ({ title }) => {
 
   return (
     <form className="form form-task" onSubmit={handleSubmit}>
-      
       <div className="form-header">
         <h2 className="form-title">{title}</h2>
 
@@ -202,7 +160,6 @@ export const TaskForm = ({ title }) => {
           And manage your tasks properly and better
         </span>
       </div>
-
 
       {/* this is Title input */}
       <div className="form-section">
@@ -322,7 +279,7 @@ export const TaskForm = ({ title }) => {
           </div>
         </section>
 
-         {/* this isa description input */}
+        {/* this isa description input */}
         <section className="form-column">
           <div className="form-group">
             <label htmlFor="Description">Description</label>
@@ -381,7 +338,11 @@ export const TaskForm = ({ title }) => {
 
       <hr />
       <div className="form-section form-submit-section">
-        <button type="submit" className="btn btn-lg btn-primary">
+        <button
+          type="button"
+          className="btn btn-lg btn-primary"
+          onClick={closeModal}
+        >
           Close
         </button>
         <button type="submit" className="btn btn-lg btn-primary">

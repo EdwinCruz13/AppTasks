@@ -1,180 +1,185 @@
-.form-task{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap:1.3rem;
-    /* width: 100%; */
-    padding: 0.25rem 2.25rem;
-    font-family: "cream";
+.form-task {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.3rem;
+  /* width: 100%; */
+  padding: 0.25rem 2.25rem;
+  font-family: "cream";
 }
 
-.form-header{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+.form-header {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
-
-.form-title{
-    color: #010101;
-    font-size: 28px;
-    text-align: center;
-    font-family: "cream";
+.form-title {
+  color: #010101;
+  font-size: 28px;
+  text-align: center;
+  font-family: "cream";
 }
 
-.form-description{
-    color: #BDBDBD;
-    font-size: 18px;
-    text-align: center;
-    margin-top: -4px;
-    font-family: "cream";
+.form-description {
+  color: #bdbdbd;
+  font-size: 18px;
+  text-align: center;
+  margin-top: -4px;
+  font-family: "cream";
 }
 
 .form-section {
-    display: flex;
-    flex-flow: row nowrap;
-    margin-bottom: 0;
-    width: 100%;
-    gap: 2.4rem;
-    margin-top: 1.45rem;
+  display: flex;
+  flex-flow: row nowrap;
+  margin-bottom: 0;
+  width: 100%;
+  gap: 2.4rem;
+  margin-top: 1.45rem;
 }
 
-.form-task .form-column{
-    width: 100%;
+.form-task .form-column {
+  width: 100%;
 }
-.form-task .form-column .form-group{
-    margin-bottom: 1.25rem;
-}
-
-.form-submit-section{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+.form-task .form-column .form-group {
+  margin-bottom: 1.25rem;
 }
 
-.form-inline{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: left;
-    align-items: center;
-    gap:1rem;
-    width: 100%;
+.form-submit-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.form-inline .form-inline-input, .form-inline-input input{
-    display: block;
-    width: 100%;
+.form-inline {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: left;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
 }
 
-#porcentage{
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: center;
+.form-inline .form-inline-input,
+.form-inline-input input {
+  display: block;
+  width: 100%;
 }
 
+#porcentage {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.inputImage {
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 310px;
+  height: 200px;
+  border: 0.01rem solid #CFD8DC;
+  background-color: rgba(240, 248, 255, 0.342);
+  border-radius: 5%;
+}
 
 /* large screen */
 @media (min-width: 1386px) {
-   
 }
 
 /*for desktop*/
 @media (min-width: 1246px) and (max-width: 1433px) {
-   
 }
-
 
 /*ipad and any device in potrait mode*/
 @media (min-width: 768px) and (max-width: 1282px) {
-    .form-section {
-        flex-flow: column nowrap;
-        width: 100%;
-        gap:0;
-    }
+  .form-section {
+    flex-flow: column nowrap;
+    width: 100%;
+    gap: 0;
+  }
 
-    .form-inline{
-        flex-direction: column;
-        width: 100%;
-    }
+  .form-inline {
+    flex-direction: column;
+    width: 100%;
+  }
 
-    .form-inline .form-inline-input, .form-inline-input input{
-        width: 100%;
-    }
+  .form-inline .form-inline-input,
+  .form-inline-input input {
+    width: 100%;
+  }
 
-    .form-group{
-        width: 100%;
-    }
+  .form-group {
+    width: 100%;
+  }
 
-    
-    .form-submit-section{
-        flex-direction: row;
-        justify-content: space-between;
-        margin-bottom: 1.7rem;
-    }
+  .form-submit-section {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1.7rem;
+  }
 }
 
 /*mobile and small ipad*/
 @media (min-width: 480px) and (max-width: 767px) {
-    .form-section {
-        flex-flow: column nowrap;
-        width: 100%;
-        gap:0;
-    }
+  .form-section {
+    flex-flow: column nowrap;
+    width: 100%;
+    gap: 0;
+  }
 
-    .form-inline{
-        flex-direction: column;
-        width: 100%;
-    }
+  .form-inline {
+    flex-direction: column;
+    width: 100%;
+  }
 
-    .form-inline .form-inline-input, .form-inline-input input{
-        width: 100%;
-    }
+  .form-inline .form-inline-input,
+  .form-inline-input input {
+    width: 100%;
+  }
 
-    .form-group{
-        width: 100%;
-    }
+  .form-group {
+    width: 100%;
+  }
 
-    
-    .form-submit-section{
-        flex-direction: row;
-        justify-content: space-between;
-        margin-bottom: 1.7rem;
-    }
+  .form-submit-section {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1.7rem;
+  }
 }
 
 /*small device*/
 @media (max-width: 480px) {
-    .form-section {
-        flex-flow: column nowrap;
-        width: 100%;
-        gap:0;
-    }
+  .form-section {
+    flex-flow: column nowrap;
+    width: 100%;
+    gap: 0;
+  }
 
-    .form-inline{
-        flex-direction: column;
-        width: 100%;
-    }
+  .form-inline {
+    flex-direction: column;
+    width: 100%;
+  }
 
-    .form-inline .form-inline-input, .form-inline-input input{
-        width: 100%;
-    }
+  .form-inline .form-inline-input,
+  .form-inline-input input {
+    width: 100%;
+  }
 
-    .form-group{
-        width: 100%;
-    }
+  .form-group {
+    width: 100%;
+  }
 
-    
-    .form-submit-section{
-        flex-direction: row;
-        justify-content: space-between;
-        margin-bottom: 1.7rem;
-    }
+  .form-submit-section {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1.7rem;
+  }
 }

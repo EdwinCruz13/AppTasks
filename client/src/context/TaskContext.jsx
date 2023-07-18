@@ -4,8 +4,7 @@ import {
   UpdateTaskRequest,
   TasksRequest,
   TasksDetailRequest,
-  StatesRequest,
-  TaskTypesRequest
+  StatesRequest
 } from "../api/task.api";
 
 /**
@@ -22,7 +21,6 @@ export const TaskContextProvider = ({ children }) => {
   const [selectedTask, setSelectedTask] = useState(null);
 
   const [states, setStates] = useState(null);
-  const [types, setTypes] = useState(null);
 
   const [errorMessage, setErrorMessage] = useState({
     responseError: "",
@@ -36,7 +34,6 @@ export const TaskContextProvider = ({ children }) => {
     async function loaddata() {
       await GetTasks();
       await GetStates();
-      await GetTaskTypes();
     }
 
     loaddata();
@@ -83,9 +80,6 @@ export const TaskContextProvider = ({ children }) => {
 
   const setNew = async () => {
     await setSelectedTask(null);
-    // await GetTasks();
-    // await GetStates();
-    // await GetTaskTypes();
   };
 
   /**
@@ -107,24 +101,6 @@ export const TaskContextProvider = ({ children }) => {
     }
   };
 
-  /**
-   * get the task types list
-   */
-  const GetTaskTypes = async () => {
-    try {
-      const list = await TaskTypesRequest();
-      if (!list) {
-        setTypes(null);
-        setLoading(false);
-        return;
-      }
-
-      setTypes(list.data);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   /**
    * create a new task
@@ -177,7 +153,6 @@ export const TaskContextProvider = ({ children }) => {
         tasks,
         selectedTask,
         states,
-        types,
         loading,
         GetTasks,
         GetTask,
