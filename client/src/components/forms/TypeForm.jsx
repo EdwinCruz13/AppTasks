@@ -1,16 +1,19 @@
 import { React, useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+// import components
+import { Loading } from "../../components/loading/Loading";
+
 //import context
 import { TaskTypeContext } from "../../context/TaskTypeContext";
-import {  ModalContext} from "../../context/ModalContext";
+import { ModalContext } from "../../context/ModalContext";
 
 import brokenImage from "../../assets/broken-image.png";
 
 export const TypeForm = ({ title }) => {
-  const { selectedType } = useContext(TaskTypeContext);
-    const { closeModal }=  useContext(ModalContext);
-  
+  const { selectedType, loading } = useContext(TaskTypeContext);
+  const { closeModal } = useContext(ModalContext);
+
   const [data, setData] = useState({ _id: "", nType: "", urlImage: "" });
   const image = useRef();
 
@@ -27,7 +30,7 @@ export const TypeForm = ({ title }) => {
       setData({
         _id: selectedType._id,
         nType: selectedType.nType,
-        urlImage: selectedType.urlImage ? selectedType.urlImage : "",
+        urlImage: selectedType.urlImage ? selectedType.urlImage : ""
       });
     }
   }, [selectedType]);
@@ -110,12 +113,16 @@ export const TypeForm = ({ title }) => {
           <section className="form-column">
             <div className="form-group" style={{ marginTop: "-10px" }}>
               <label htmlFor="nType">Image</label>
-              <img
-                className="inputImage"
-                alt="image-tasktypenew"
-                onError={setbrokenImage}
-                ref={image}
-              ></img>
+              {!loading ? (
+                <img
+                  className="inputImage"
+                  alt="image-tasktypenew"
+                  onError={setbrokenImage}
+                  ref={image}
+                ></img>
+              ) : (
+                <Loading />
+              )}
             </div>
           </section>
         </div>
