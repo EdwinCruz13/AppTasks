@@ -1,7 +1,7 @@
 import { React, createContext, useEffect, useState  } from "react";
 import Cookies from "js-cookie";
 import { LoginRequest, LogoutRequest, VerifyTokenRequest } from "../api/auth.api";
-import { UsersRequest } from "../api/user.api";
+import { UsersRequest, UserDetailRequest, CreateUserRequest, UpdateUserRequest } from "../api/user.api";
 
 //create a context
 export const UserContext = createContext();
@@ -12,6 +12,7 @@ export const UserContextProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [users, setUsers] = useState(null);
+    const [selectedUser, setSelectedUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [errorMessage, setErrorMessage] = useState({ responseError: "", usernameError: "", emailError: "", passwordError: ""});
     const [loading, setLoading] = useState(true);
@@ -62,6 +63,54 @@ export const UserContextProvider = ({ children }) => {
         verifyToken();
     }, []);
 
+
+    /**
+     * create a new user
+     * @param {*} user 
+     * @returns 
+     */
+    const CreateUser = async(user) => {
+        try {
+            //do a request using a new AxiosRequest object
+            const response = await CreateUserRequest(user);
+      
+            //check the response from api rest
+            if (!response.data.error) {
+              //refresh the page
+              return "OK";
+            } else {
+              return response.data.error;
+            }
+          } catch (error) {
+            setLoading(false);
+            console.log(error);
+          }
+    }
+
+
+    const UpdateUser = async(user) => {
+        try {
+            //do a request using a new AxiosRequest object
+            const response = await UpdateUserRequest(user);
+      
+            //check the response from api rest
+            if (!response.data.error) {
+              //refresh the page
+              return "OK";
+            } else {
+              return response.data.error;
+            }
+          } catch (error) {
+            setLoading(false);
+            console.log(error);
+          }
+    }
+
+
+    /**
+     * get the user list
+     * @returns 
+     */
     const GetUserList = async() => {
         try {
             const list = await UsersRequest();
@@ -71,6 +120,22 @@ export const UserContextProvider = ({ children }) => {
                 return
             }
             setUsers(list.data);
+            setLoading(false);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const GetUser = async(Id) => {
+        try {
+            const list = await UserDetailRequest(Id);
+            if(!list){
+                setSelectedUser(null);
+                setLoading(false);
+                return
+            }
+            setSelectedUser(list.data);
             setLoading(false);
 
         } catch (error) {
@@ -132,9 +197,13 @@ export const UserContextProvider = ({ children }) => {
         }
     }
 
+    const setNew = () => {
+        setSelectedUser(null);
+    }
+
     return (
         <UserContext.Provider 
-            value={{user, users, isAuthenticated, loading, errorMessage, Signin, Logout}}
+            value={{user, users, selectedUser, isAuthenticated, loading, errorMessage, CreateUser, UpdateUser, GetUser, Signin, Logout, setNew}}
         >
             { children }
         </UserContext.Provider>

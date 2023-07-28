@@ -138,7 +138,7 @@ export const Tasks = () => {
                         Title={item.Title}
                         SubTitle={item.AssignedTo.Username}
                         Description={item.Description}
-                        Image={item.Title}
+                        Image={""}
                         Label1={startDateMDY}
                         Label2={dueDateMDY}
                         Label3={item.Completed + " %"}

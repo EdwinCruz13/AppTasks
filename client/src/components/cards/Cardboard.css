@@ -1,0 +1,135 @@
+.card-bodyDashboard {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0.25rem 0.85rem;
+  height: 100%;
+}
+
+.card-bodyDashboard p {
+  margin-top: -0.5rem;
+
+  display: -webkit-box;
+  max-height: 5rem;
+  width: 300px;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.dashboard-pane .card {
+  width: auto;
+}
+
+.dashboard-user,
+.dashboard-user .dashboard-profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.05rem;
+  margin-bottom: 1rem;
+}
+
+.dashboard-user img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 20px;
+  height: 20px;
+  border-radius: 25px;
+}
+
+.dashboard-user .dashboard-profile {
+  gap: 0.45rem;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.dashboard-icon {
+  display: flex;
+  gap: 0.65rem;
+}
+
+
+.background-cancelled{
+  background-color: rgba(245, 149, 149, 0.473);
+}
+
+.background-notStarted{
+  background-color: rgba(110, 115, 141, 0.473);
+}
+
+.background-ongoing{
+  background-color: rgba(132, 98, 185, 0.473);
+}
+
+.background-completed{
+  background-color: rgba(128, 209, 51, 0.473);
+}
+
+
+/* large screen */
+@media (min-width: 1386px) {
+  .dashboard-pane .card {
+    width: 100%;
+  }
+
+  .card-bodyDashboard p {
+    display: block;
+    width: auto;
+    overflow: hidden !important;
+    text-overflow:initial;
+    -webkit-box-orient:horizontal;
+    -webkit-line-clamp: 0;
+  }
+}
+
+/*for desktop*/
+@media (min-width: 1246px) and (max-width: 1433px) {
+  .dashboard-pane .card {
+    width: 320px;
+  }
+
+  
+}
+
+/*ipad and any device in potrait mode*/
+@media (min-width: 768px) and (max-width: 1282px) {
+  .dashboard-pane .card {
+    width: 100%;
+  }
+
+  .card-bodyDashboard p {
+    display: block;
+    width: auto;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp: 1;
+  }
+}
+
+/*mobile and small ipad*/
+@media (min-width: 480px) and (max-width: 767px) {
+  .dashboard-pane .card {
+    width: 100%;
+  }
+
+  .card-bodyDashboard p {
+    display: block;
+    width: auto;
+    overflow: hidden !important;
+    text-overflow:initial;
+    -webkit-box-orient:horizontal;
+    -webkit-line-clamp: 0;
+  }
+  
+}
+
+/*small device*/
+@media (max-width: 480px) {
+  .dashboard-pane .card {
+    width: 100%;
+  }
+}

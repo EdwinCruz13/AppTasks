@@ -11,7 +11,9 @@ import { ModalContext } from "../../context/ModalContext";
 import brokenImage from "../../assets/broken-image.png";
 
 export const TypeForm = ({ title }) => {
-  const { selectedType, loading } = useContext(TaskTypeContext);
+    const navigate = useNavigate();
+  const { selectedType, loading, SaveType, UpdateType } =
+    useContext(TaskTypeContext);
   const { closeModal } = useContext(ModalContext);
 
   const [data, setData] = useState({ _id: "", nType: "", urlImage: "" });
@@ -30,7 +32,7 @@ export const TypeForm = ({ title }) => {
       setData({
         _id: selectedType._id,
         nType: selectedType.nType,
-        urlImage: selectedType.urlImage ? selectedType.urlImage : ""
+        urlImage: selectedType.urlImage ? selectedType.urlImage : "",
       });
     }
   }, [selectedType]);
@@ -54,12 +56,20 @@ export const TypeForm = ({ title }) => {
   /**
    * save the type
    */
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     //update a type
     if (selectedType) {
+
+      let save = await UpdateType(data);
+      if (save === "OK") refreshPage();
+      else alert(save);
     }
     //new type
     if (!selectedType) {
+      let save = await SaveType(data);
+      if (save === "OK") refreshPage();
     }
   };
 
@@ -140,6 +150,8 @@ export const TypeForm = ({ title }) => {
             Save
           </button>
         </div>
+
+        <hr />
       </form>
     </>
   );

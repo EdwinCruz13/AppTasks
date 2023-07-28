@@ -7,7 +7,7 @@ import { UserAuth, AdminAuth } from "../middleware/auth.validate.middleware.js";
 //create a router for State http request
 const router = Router();
 
-router.get("/getStates", UserAuth, getStates);
+router.get("/getStates", getStates);
 router.get("/getState/:id", UserAuth, getState);
 router.post("/createState", AdminAuth, createState);
 router.put("/updateState/:id", AdminAuth, updateState);

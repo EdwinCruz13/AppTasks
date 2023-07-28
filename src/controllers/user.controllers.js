@@ -1,6 +1,7 @@
 import bcryptjs  from "bcryptjs";
 import { GenerateToken } from "../config/web.token.js";
 
+
 //import models
 import UserModel from "../models/user.models.js";
 import DeparmentModel from "../models/department.models.js";
@@ -37,6 +38,8 @@ export const getUser = async(req, resp) => {
     try {
         const user = await UserModel.findById(req.params.id).populate("Department");;
 
+        
+
         //return an user
         return resp.status(200).json(user);
     } catch (error) {
@@ -53,26 +56,29 @@ export const getUser = async(req, resp) => {
  * @returns 
  */
 export const createUser = async(req, resp) => {
-    const { Email, Username, Password, Department, isAdmin } = req.body;
+    const { Email, Username, Password, Department, isAdmin, Fullname } = req.body;
     try {
+
 
         //find the department
         const deparmentFound = await DeparmentModel.findById( Department.Id )
 
         //enconde the password
-        const passwordHash = await bcryptjs.hash(Password, 10)
+        const passwordHash = await bcryptjs.hash(Password, 10);
 
+        
         //save the new user
         const newUser = await UserModel({
-            Email, Username, Password: passwordHash, isAdmin, Department: deparmentFound
+            Email, Username, Password: passwordHash, isAdmin, Department: deparmentFound, Fullname
         });
         await newUser.save();
-
-        //generate a token
-        const token = await GenerateToken({id: newUser._id});
+        // //generate a token
+        // const token = await GenerateToken({id: newUser._id});
         
         //create a cookie
-        resp.cookie("token", token);
+        //resp.cookie("token", token);
+
+      
 
         //return the createuser (do not send the password)
         return resp.status(200).json({
@@ -80,9 +86,12 @@ export const createUser = async(req, resp) => {
             Username: newUser.Username,
             Email: newUser.Username,
             isAdmin: newUser.isAdmin,
-            Department: deparmentFound
+            Department: deparmentFound,
+            Fullname: newUser.Fullname,
+            ImgProfile: newUser.ImgProfile
         });
     } catch (error) {
+        console.log(error)
         resp.status(500).json({error: "error: " + error});
     }
 }
@@ -94,7 +103,9 @@ export const createUser = async(req, resp) => {
  * @returns 
  */
 export const updateUser = async(req, resp) => {
-    const { Email, Username, Password, isAdmin, Department } = req.body;
+    const { Email, Username, Password, isAdmin, Department, Fullname} = req.body;
+
+    console.log(req.body)
 
     try {
         //find the department
@@ -104,7 +115,7 @@ export const updateUser = async(req, resp) => {
         const passwordHash = await bcryptjs.hash(Password, 10)
 
         //find by id and update
-        const updateUser = await UserModel.findByIdAndUpdate(req.params.id, { Email, Username, Password: passwordHash, isAdmin, Department: deparmentFound  } ,  {new: true});
+        const updateUser = await UserModel.findByIdAndUpdate(req.params.id, { Email, Username, Password: passwordHash, isAdmin, Department: deparmentFound, Fullname  } ,  {new: true});
 
         //if the user does not exists send a error message as bad request
         if(!updateUser) return resp.status(404).json({error: "User not found"});
@@ -115,7 +126,9 @@ export const updateUser = async(req, resp) => {
             Username: updateUser.Username,
             Email: updateUser.Username,
             isAdmin: updateUser.isAdmin,
-            Department: deparmentFound
+            Department: deparmentFound,
+            Fullname: updateUser.Fullname, 
+            ImgProfile: updateUser.ImgProfile
         });
         
     } catch (error) {

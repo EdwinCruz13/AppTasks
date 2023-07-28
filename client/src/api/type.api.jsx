@@ -26,3 +26,31 @@ export const TaskTypeDetailRequest = async(Id) => {
         return error.response;
     }
 }
+
+/**
+ * create a new type request to the backend
+ * @param {*} type 
+ * @returns 
+ */
+export const CreateTypeRequest = async(type) =>{
+    try {
+        const response = await axios.post(`types/createtype`, type);
+        return response;
+    } catch (error) {
+        return error.response;
+    }
+}
+
+/**
+ * update the selected type
+ * @param {*} type 
+ * @returns 
+ */
+export const UpdateTaskRequest = async(type) =>{
+    try {
+        const response = await axios.put(`types/updatetype/${type._id}`, type);
+        return response;
+    } catch (error) {
+        return error.response;
+    }
+}

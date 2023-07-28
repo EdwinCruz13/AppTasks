@@ -42,9 +42,10 @@ export const getType = async(req, resp) => {
  * @returns 
  */
 export const createType = async(req, resp) => {
-    const { nType } = req.body;
+    console.log(req.body)
+    const { nType, urlImage } = req.body;
     try {
-        const newType = await TaskTypeModel({ nType });
+        const newType = await TaskTypeModel({ nType, urlImage });
         await newType.save();
 
         return resp.status(200).json(newType);;
@@ -61,6 +62,7 @@ export const createType = async(req, resp) => {
  * @returns 
  */
 export const updateType = async(req, resp) => {
+    console.log(req.body)
     try {
         const updatedType = await TaskTypeModel.findByIdAndUpdate(req.params.id, req.body, { new: true});
         if(!updatedType) return resp.status(400).json({error: "Type not found"})

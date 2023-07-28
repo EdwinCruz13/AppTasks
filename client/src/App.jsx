@@ -14,6 +14,7 @@ import { Tasks } from "./pages/Tasks/Tasks";
 import { TaskTypes } from "./pages/TaskTypes/TaskTypes";
 import { States } from "./pages/States/States";
 import { Users } from "./pages/Users/Users";
+import { Profile } from "./pages/Profile/Profile";
 
 //import context provider
 import { ModalContextProvider } from "./context/ModalContext";
@@ -21,33 +22,41 @@ import { UserContextProvider } from "./context/UserContext";
 import { TaskContextProvider } from "./context/TaskContext";
 
 import { TaskTypeContextProvider } from "./context/TaskTypeContext";
+import { DepartmentContextProvider } from "./context/DepartmentContext";
+
 
 function App() {
   return (
     <>
       <ModalContextProvider>
         <UserContextProvider>
-          <TaskContextProvider>
-            <TaskTypeContextProvider>
+          
+            <TaskContextProvider>
+              <TaskTypeContextProvider>
+              <DepartmentContextProvider>  
               <BrowserRouter>
-                <Routes>
-                  <Route path="/home" element={<Home />} />
-                  <Route exact path="/" element={<SignIn />} />
-                  <Route path="/signin" element={<SignIn />} />
-                  <Route path="/signup" element={<SignUp />} />
-                  <Route path="/logout" element={<Logout />} />
+                  <Routes>
+                    <Route path="/home" element={<Home />} />
+                    <Route exact path="/" element={<SignIn />} />
+                    <Route path="/signin" element={<SignIn />} />
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="/logout" element={<Logout />} />
 
-                  <Route element={<ProtectedRoute />}>
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/tasks" element={<Tasks />} />
-                    <Route path="/tasktypes" element={<TaskTypes />} />
-                    <Route path="/states" element={<States />} />
-                    <Route path="/users" element={<Users />} />
-                  </Route>
-                </Routes>
-              </BrowserRouter>
-            </TaskTypeContextProvider>
-          </TaskContextProvider>
+                    <Route element={<ProtectedRoute />}>
+                      <Route path="/dashboard" element={<Dashboard />} />
+                      <Route path="/tasks" element={<Tasks />} />
+                      <Route path="/tasktypes" element={<TaskTypes />} />
+                      <Route path="/states" element={<States />} />
+                      <Route path="/users" element={<Users />} />
+                      <Route path="/profile" element={<Profile />} />
+                    </Route>
+                  </Routes>
+                </BrowserRouter>
+              </DepartmentContextProvider>
+                
+              </TaskTypeContextProvider>
+            </TaskContextProvider>
+         
         </UserContextProvider>
       </ModalContextProvider>
     </>

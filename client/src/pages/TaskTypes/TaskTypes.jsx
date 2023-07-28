@@ -1,4 +1,4 @@
-import { React, useContext, useEffect } from "react";
+import { React, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 //import components
@@ -17,6 +17,7 @@ import { ModalContext } from "../../context/ModalContext";
 
 export const TaskTypes = () => {
   const { types, selectedType, loading, GetTypes, GetType, setNew } = useContext(TaskTypeContext);
+  const [title, setTitle] = useState("New Type");
   const { openModal } = useContext(ModalContext);
 
   useEffect(() => {
@@ -28,6 +29,7 @@ export const TaskTypes = () => {
    */
   const handleSaveClick = () => {
     setNew();
+    setTitle("Create a new type");
     openModal();
   };
   /**
@@ -35,14 +37,15 @@ export const TaskTypes = () => {
    */
   const toSelectType = async(e) => {
     let _id = e.currentTarget.getAttribute("data-item");
-    await GetType(_id)
+    await GetType(_id);
+    setTitle("Update the type");
     openModal();
 
 
   };
   return (
     <>
-      <Modal children={<TypeForm title = {"new Type"} />} title={"new modal"} />
+      <Modal children={<TypeForm title = {title} />} title={title} />
       <section className="container">
         <Aside />
 
@@ -83,10 +86,10 @@ export const TaskTypes = () => {
                           Title={item.nType}
                           SubTitle={item.nType}
                           Description={item.nType}
-                          Image={"item.Title"}
-                          Label1={"item.Title"}
-                          Label2={"item.Title"}
-                          Label3={"item.Title"}
+                          Image={item.urlImage}
+                          Label1={""}
+                          Label2={""}
+                          Label3={""}
                           action={toSelectType}
                         />
                       );

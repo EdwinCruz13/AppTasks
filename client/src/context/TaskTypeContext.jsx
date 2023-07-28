@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { TaskTypesRequest, TaskTypeDetailRequest } from "../api/type.api";
+import { TaskTypesRequest, TaskTypeDetailRequest, CreateTypeRequest, UpdateTaskRequest } from "../api/type.api";
 
 /**
  * Create a context for types
@@ -72,9 +72,56 @@ export const TaskTypeContextProvider = ({ children }) => {
     }
   };
 
+  /**
+   * save a new type
+   * @param {*} type 
+   * @returns 
+   */
+  const SaveType = async(type) => {
+    try {
+      //do a request using a new AxiosRequest object
+      const response = await CreateTypeRequest(type);
+
+      //check the response from api rest
+      if (!response.data.error) {
+        //refresh the page
+        return "OK";
+      } else {
+        return response.data.error;
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
+
+ /**
+  * update a new type request
+  * @param {*} type 
+  * @returns 
+  */
+  const UpdateType = async(type) => {
+    console.log(type)
+    try {
+      //do a request using a new AxiosRequest object
+      const response = await UpdateTaskRequest(type);
+
+      //check the response from api rest
+      if (!response.data.error) {
+        //refresh the page
+        return "OK";
+      } else {
+        return response.data.error;
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
+
   return (
     <TaskTypeContext.Provider
-      value={{ types, selectedType, loading, GetTypes, GetType, setNew }}
+      value={{ types, selectedType, loading, GetTypes, GetType, SaveType, UpdateType, setNew }}
     >
       {children}
     </TaskTypeContext.Provider>

@@ -26,6 +26,9 @@ export const Modal = ({ children, title }) => {
         </section>
         <div className="overlay hidden" ref={overlay}></div>
       </div>
+
+
+      
     </>
   );
 };

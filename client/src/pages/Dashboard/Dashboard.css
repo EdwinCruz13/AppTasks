@@ -1,0 +1,57 @@
+.dashboard-pane{
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 2.5rem;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 100%;
+}
+
+
+.dashboard-table{
+    display: flex;
+    flex-flow: column wrap;
+    gap: 1.25rem;
+    width: 100%;
+}
+
+
+
+
+/* large screen */
+@media (min-width: 1386px) {
+    .dashboard-pane{
+        flex-flow: row nowrap;
+    }
+    
+}
+
+/*for desktop*/
+@media (min-width: 1246px) and (max-width: 1433px) {
+    
+}
+
+
+/*ipad and any device in potrait mode*/
+@media (min-width: 768px) and (max-width: 1282px) {
+    .dashboard-pane{
+        flex-flow: column nowrap;
+    }
+
+}
+
+/*mobile and small ipad*/
+@media (min-width: 480px) and (max-width: 767px) {
+    .dashboard-pane{
+        flex-flow: column nowrap;
+
+    }
+}
+
+/*small device*/
+@media (max-width: 480px) {
+    .dashboard-pane{
+        flex-flow: column nowrap;
+        width: 100%;
+    }
+}

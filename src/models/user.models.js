@@ -6,7 +6,9 @@ const userSchema = new mongoose.Schema({
     Username: {type: String, required: true, lowercase: true, trim: true},
     Password: {type: String, required: true, trim: true},
     Department: { type: Schema.Types.ObjectId, ref: "Deparments"},
-    isAdmin: { type: Boolean, required:true}
+    isAdmin: { type: Boolean, required:true},
+    Fullname: { type: String, required: false, trim: true, lowercase: false},
+    ImgProfile: { data: Buffer, contentType: String}
 }, { timestamps: true });
 
 //export the model

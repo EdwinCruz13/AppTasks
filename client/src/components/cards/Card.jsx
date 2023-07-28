@@ -17,7 +17,7 @@ export const Card = ({ _id, Title, SubTitle, Description, Image, Label1, Label2,
       <div className="card" data-item={_id} onClick={action}>
         <div className="card-body">
           <section className="card-left-side card-side">
-            <img src={profile} alt="profile-apptasks" />
+            <img src={(Image != "") ? Image : profile} alt="profile-apptasks" />
             <span className="">{SubTitle}</span>
           </section>
 

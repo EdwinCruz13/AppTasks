@@ -230,6 +230,24 @@ textarea{
 }
 
 
+input[type="radio"],
+input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+
+}
+.checkbox{
+  font-size: 18px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.35rem;
+  
+}
+
 
 
 
