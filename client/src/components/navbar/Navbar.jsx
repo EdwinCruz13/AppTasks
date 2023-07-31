@@ -12,7 +12,7 @@ export const Navbar = () => {
     <>
       <nav className="navbar bg-light">
         <a className="navbar-brand" href="#">
-          Title here
+        { window.location.pathname.toUpperCase().replace("/", "")}
         </a>
 
         <div className="navbar-user">

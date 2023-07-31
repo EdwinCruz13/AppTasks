@@ -40,8 +40,6 @@ export const TaskTypes = () => {
     await GetType(_id);
     setTitle("Update the type");
     openModal();
-
-
   };
   return (
     <>

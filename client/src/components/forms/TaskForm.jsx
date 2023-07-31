@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 //import user context
 import { UserContext } from "../../context/UserContext";
 import { TaskContext } from "../../context/TaskContext";
+import { StateContext } from "../../context/StateContext";
 import { TaskTypeContext } from "../../context/TaskTypeContext";
 import { ModalContext } from "../../context/ModalContext";
 
@@ -17,8 +18,8 @@ import "./TaskForm.css";
 export const TaskForm = ({ title }) => {
   const navigate = useNavigate();
   const { user, users } = useContext(UserContext);
-  const { states, loading, selectedTask, SaveTask, UpdateTask } =
-    useContext(TaskContext);
+  const { loading, selectedTask, SaveTask, UpdateTask } = useContext(TaskContext);
+  const { states } = useContext(StateContext);
   const { types } = useContext(TaskTypeContext);
   const { closeModal } = useContext(ModalContext);
 

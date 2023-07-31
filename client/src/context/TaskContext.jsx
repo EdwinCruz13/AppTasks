@@ -3,9 +3,10 @@ import {
   CreateTaskRequest,
   UpdateTaskRequest,
   TasksRequest,
-  TasksDetailRequest,
-  StatesRequest
+  TasksDetailRequest
 } from "../api/task.api";
+
+
 
 /**
  * Create a context for task
@@ -20,7 +21,7 @@ export const TaskContextProvider = ({ children }) => {
   const [tasks, setTasks] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
 
-  const [states, setStates] = useState(null);
+  
 
   const [errorMessage, setErrorMessage] = useState({
     responseError: "",
@@ -33,7 +34,6 @@ export const TaskContextProvider = ({ children }) => {
   useEffect(() => {
     async function loaddata() {
       await GetTasks();
-      await GetStates();
     }
 
     loaddata();
@@ -84,24 +84,7 @@ export const TaskContextProvider = ({ children }) => {
     await setSelectedTask(null);
   };
 
-  /**
-   * get the states list
-   */
-  const GetStates = async () => {
-    try {
-      const list = await StatesRequest();
-      if (!list) {
-        setStates(null);
-        setLoading(false);
-        return;
-      }
-
-      setStates(list.data);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+ 
 
 
   /**
@@ -154,7 +137,6 @@ export const TaskContextProvider = ({ children }) => {
       value={{
         tasks,
         selectedTask,
-        states,
         loading,
         GetTasks,
         GetTask,

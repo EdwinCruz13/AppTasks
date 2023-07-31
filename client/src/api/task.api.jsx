@@ -57,16 +57,4 @@ export const TasksDetailRequest = async(Id) => {
 
 
 
-/**
- * send a request in order to get the state list
- * according the cookie, it will returns the list
- */
-export const StatesRequest = async() => {
-    try {
-        const response = await axios.get(`states/getStates`);
-        return response;
-    } catch (error) {
-        return error.response;
-    }
-}
 
