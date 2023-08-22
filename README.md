@@ -23,11 +23,16 @@
 - **Cross-Platform:** Available on web.
     </p>
 
-- [x] Dashboard
-- [x] Tasks
-- [x] Types manager
-- [x] States manager
-- [x] User manager
+    <p>
+    **This application contains the following modules:**
+    - [x] Dashboard
+    - [x] Tasks
+    - [x] Types manager
+    - [x] States manager
+    - [x] User manager
+    </p>
+
+
 </details>
 
 <details open="">
