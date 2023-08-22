@@ -4,6 +4,8 @@
   <summary><h2>✨About this App</h2></summary>
     <p dir="auto">
         Be more productive with the app task on web architecture. Manage, create, and edit tasks wherever you are, priorizing the task to do in an specific order and an specific user. Accomplish your team goals and become efficient. you will enjoy to test it <a href="https://www.npmjs.com/">🔗 HERE!!!</a>
+    </p>
+    <p dir="auto">
         This app was created on a <a href="https://github.com/EdwinCruz13/MERN">🔗 MERN Project</a> as part of my portfolio in order to learn and improve
         my skills in this stack.
     </p>
@@ -11,14 +13,14 @@
 
 <details open="">
   <summary><h2>📒 Modules</h2></summary>
-
    <p dir="auto">
-        - **Intuitive Interface:** A user-friendly interface that makes managing tasks a breeze.
-        - **Task Creation:** Easily create tasks with descriptions and due dates.
-        - **Prioritization:** Assign priority levels to tasks for effective time management.
-        - **Collaboration:** Assign tasks with others for seamless teamwork.
-        - **Personalized Experience:** Organize tasks into categories and apply custom labels.
-        - **Cross-Platform:** Available on web.
+
+- **Intuitive Interface:** A user-friendly interface that makes managing tasks a breeze.
+- **Task Creation:** Easily create tasks with descriptions and due dates.
+- **Prioritization:** Assign priority levels to tasks for effective time management.
+- **Collaboration:** Assign tasks with others for seamless teamwork.
+- **Personalized Experience:** Organize tasks into categories and apply custom labels.
+- **Cross-Platform:** Available on web.
     </p>
 
 - [x] Dashboard
