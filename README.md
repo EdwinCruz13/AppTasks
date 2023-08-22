@@ -25,6 +25,8 @@
 
     <p>
     **This application contains the following modules:**
+    </p>
+    <p>
     - [x] Dashboard
     - [x] Tasks
     - [x] Types manager
@@ -38,14 +40,16 @@
 <details open="">
   <summary><h2>📦 User by Default</h2></summary>
     <p dir="auto">
-        User: admin@admin.com
-        pass: admin
+    **User:** admin@admin.com
+    </p>  
+     <p dir="auto">
+    **pass:** admin
     </p>    
 <p dir="auto">
 
 - [x] Sign in using the credencials previously given.
 - [x] In the "tasks" create one you consider a priority.
-- [x] Put a title, descriptions, start date, due date, type of task, a current state in your task and assign a user to do.
+- [x] Put a title, descriptions, start date, due date, type of task, a current state in your task and assign an user.
 
 </details>
 
