@@ -20,7 +20,7 @@ export const Dashboard = () => {
 
   useEffect(() => {
     //set the on going task list
-    if (!loading) {
+    if (!loading && tasks.length > 0) {
       if (tasks) {
         let _onGoing = tasks.filter((item) => {
           return item.CurrentState.StateID === 1;

@@ -35,7 +35,6 @@ export const UserContextProvider = ({ children }) => {
 
             try {
                 const response = await VerifyTokenRequest(cookies.token);
-                console.log(response)
                 if(response.status === 498) {
                     await LogoutRequest();
                 }
@@ -56,7 +55,6 @@ export const UserContextProvider = ({ children }) => {
                 //console.log(user, isAuthenticated);
         
             } catch (error) {
-                console.log("here the error " + error)
                 setLoading(false);
                 setIsAuthenticated(false);
                 setUser(null);

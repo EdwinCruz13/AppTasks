@@ -14,7 +14,7 @@ export const UserAuth = (req, resp, next) => {
     //catch the token from the cookies
     const { token } = req.cookies;
     
-
+    
     //validate the cookie
     if (!token) {
         req.authenticated_user = null;
