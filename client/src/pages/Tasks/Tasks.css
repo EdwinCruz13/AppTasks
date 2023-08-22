@@ -1,0 +1,40 @@
+.angle {
+  position: relative;
+}
+
+.angle:after {
+  content: "";
+  position: absolute;
+}
+
+.angle1,
+.angle1:after {
+  height: 160px;
+  width: 100%;
+}
+.angle1 {
+  background-color: #f6e6e0;
+}
+
+.angle1:after {
+  background-color: #4e46bd;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.cc-c5c3{
+    font-size: 13.6px!important;
+    line-height: 2px!important;
+    letter-spacing: 0.02px!important;
+    border-bottom: 0 none!important;
+    margin: 0!important;
+    padding: 17px 0 20px!important;
+    overflow: hidden!important;
+    resize: none!important;
+    position: relative!important;
+    left: 0px!important;
+    right: 0!important;
+    top: 0!important;
+    bottom: 0!important;
+}
+
+

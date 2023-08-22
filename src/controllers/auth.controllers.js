@@ -76,7 +76,9 @@ export const VerifyToken = async(req, resp) => {
             if(!token) return resp.status(401).json({error: "Unathorized request"});
     
             jwt.verify(token, process.env.WEBTOKEN_SECRET, async(err, user) => {
-                if(err) return resp.status(401).json({error: "Invalid user"});
+                if(err) {
+                    return resp.status(498).json({error: "Invalid user"});
+                }
     
                 const userFound = await UserModel.findById({ _id: user.Id});
                 

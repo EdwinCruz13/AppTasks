@@ -35,6 +35,11 @@ export const UserContextProvider = ({ children }) => {
 
             try {
                 const response = await VerifyTokenRequest(cookies.token);
+                console.log(response)
+                if(response.status === 498) {
+                    await LogoutRequest();
+                }
+
                 if(!response.data){
                     setLoading(false);
                     setIsAuthenticated(false);

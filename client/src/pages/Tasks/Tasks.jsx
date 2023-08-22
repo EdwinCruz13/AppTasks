@@ -62,6 +62,8 @@ export const Tasks = () => {
           <Navbar />
 
           <div className="wrap-elemntary">
+            <div className="angle angle1"></div>
+
             <div className="filter-option-header">
               <section className="filter-date-row">
                 <div className="group-filter-item">

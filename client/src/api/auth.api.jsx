@@ -28,6 +28,7 @@ export const VerifyTokenRequest = async(token) => {
         const response = await axios.get(`users/verifytoken`, token);
         return response;
     } catch (error) {
+        console.log(error)
         return error.response;
     }
 }
